@@ -36,24 +36,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Genersoft.MDM.Pub.Common">
-      <HintPath>..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Common.dll</HintPath>
     </Reference>
     <Reference Include="Genersoft.MDM.Pub.Server">
-      <HintPath>..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Server.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Server.dll</HintPath>
     </Reference>
     <Reference Include="genersoft.platform.appframework.service, Version=3.0.10916.0, Culture=neutral, PublicKeyToken=4dc42cef6d943894, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DRP_Refer.Dll\GSP\genersoft.platform.appframework.service.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.appframework.service.dll</HintPath>
     </Reference>
     <Reference Include="genersoft.platform.appframework.spi, Version=3.0.10916.0, Culture=neutral, PublicKeyToken=4dc42cef6d943894, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DRP_Refer.Dll\GSP\genersoft.platform.appframework.spi.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.appframework.spi.dll</HintPath>
     </Reference>
     <Reference Include="genersoft.platform.engine.dataaccess">
-      <HintPath>..\..\DRP_Refer.Dll\GSP\genersoft.platform.engine.dataaccess.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.engine.dataaccess.dll</HintPath>
     </Reference>
     <Reference Include="Genersoft.Platform.Engine.DataAccess.ClientSPI">
-      <HintPath>..\..\DRP_Refer.Dll\GSP\Genersoft.Platform.Engine.DataAccess.ClientSPI.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\Genersoft.Platform.Engine.DataAccess.ClientSPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
