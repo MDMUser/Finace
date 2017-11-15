@@ -8,6 +8,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceMs.UploadServer", "FinanceMs.UploadServer\FinanceMs.UploadServer.csproj", "{9A2B7A5E-1F8D-4187-BBFC-09E57192281B}"
 EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccProjectUniqueName0 = FinanceMs.Import\\FinanceMs.Import.csproj
+		SccLocalPath0 = FinanceMs.Import
+		CanCheckoutShared = false
+		SccProjectName1 = Firefly\u0020Project
+		SccLocalPath1 = .
+		SccProvider1 = MSSCCI:Hansky\u0020Firefly
+		CanCheckoutShared = false
+		SccProjectUniqueName2 = FinanceMs.UploadServer\\FinanceMs.UploadServer.csproj
+		SccLocalPath2 = FinanceMs.UploadServer
+		CanCheckoutShared = false
+		SccProjectUniqueName3 = FinanceMs.Common\\FinanceMs.Common.csproj
+		SccLocalPath3 = FinanceMs.Common
+		CanCheckoutShared = false
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
