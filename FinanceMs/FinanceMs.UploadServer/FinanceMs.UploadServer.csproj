@@ -118,6 +118,10 @@
       <Project>{10323FF4-0DFF-41C1-9B5A-A040E9C9AB56}</Project>
       <Name>FinanceMs.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FinanceMs.Import\FinanceMs.Import.csproj">
+      <Project>{3AFA4332-31CE-48E5-AF85-28F6A4A8EE72}</Project>
+      <Name>FinanceMs.Import</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

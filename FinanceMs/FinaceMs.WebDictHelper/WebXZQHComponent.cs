@@ -27,7 +27,7 @@ namespace FinaceMs.WebDictHelper
                 code = (int)EnumAdjustState.ok,
                 context = ""
             };
-            var res= 
+            //var res= 
             return "";
         }
     }
