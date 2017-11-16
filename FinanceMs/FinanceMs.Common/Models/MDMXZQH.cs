@@ -49,9 +49,9 @@ namespace FinanceMs.Common.Models
         public string MarkName { get; set; }
 
         /// <summary>
-        /// 上级区划ID
+        /// 上级区划内码
         /// </summary>
-        public string ParentID { get; set; }
+        public string ParentNM { get; set; }
 
         /// <summary>
         /// 上级区划代码

@@ -81,4 +81,27 @@ namespace FinanceMs.Common
         disable = 1,
     }
 
+    /// <summary>
+    /// 调整级次返回结果
+    /// </summary>
+    public enum EnumAdjustState
+    {
+        /// <summary>
+        /// 成功
+        /// </summary>
+        ok = 0,
+        /// <summary>
+        /// 信息不全
+        /// </summary>
+        infoEmpty = 1,
+        /// <summary>
+        /// 信息无效
+        /// </summary>
+        infoFail = 2,
+        /// <summary>
+        /// 信息未改变
+        /// </summary>
+        unchanged = 3
+    }
+
 }

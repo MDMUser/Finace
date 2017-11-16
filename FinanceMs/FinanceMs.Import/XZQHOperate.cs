@@ -122,7 +122,6 @@ namespace FinanceMs.Import
                         {
                             sqledit.AppendFormat(" DZXBCode={0} , DZXBName='{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.DZXBName.Trim()), addInfo.DZXBName.Trim());
                         }
-                        sqledit.AppendFormat(" ParentID='{0}',ParentCode='{1}', ", resModel.ParentNM, addInfo.ParentCode);
                         sqledit.AppendFormat(" PinYin='{0}',JianPin='{1}', Note='{2}', ", addInfo.PinYin, addInfo.JianPin, addInfo.Note);
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         sqledit.AppendFormat(" Where NM = '{0}' ", resModel.NM);
@@ -145,7 +144,7 @@ namespace FinanceMs.Import
                         }
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
-                        addSql.AppendLine(" INSERT INTO MDMXZQH ( NM, Code, Name, LevelCode, LevelName,MarkCode, MarkName,ParentID,ParentCode, PinYin, JianPin, ");
+                        addSql.AppendLine(" INSERT INTO MDMXZQH ( NM, Code, Name, LevelCode, LevelName,MarkCode, MarkName,ParentNM,ParentCode, PinYin, JianPin, ");
                         addSql.AppendLine("  DZXBCode,DZXBName,Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
                         // 财政管理级次

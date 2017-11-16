@@ -14,26 +14,16 @@ namespace FinanceMs.Common
 {
     public static class DBUtility
     {
-        public static DataSet GetModelSchema(string mdmModelId)
-        {
-            DataSet ds = null;
-            if (!string.IsNullOrWhiteSpace(mdmModelId))
-            {
-                GSPDataAccessEngine daEngine = GSPDataAccessEngine.GetDataAccessEngine();
-                ds = daEngine.GetObjectDataSet(mdmModelId, "", DataQueryType.QueryForCart);
-            }
-            return ds;
-        }
-
-        /// <summary>
-        /// 根据字典编号获取该字典的分级码长度
-        /// </summary>
-        /// <param name="dictCode"></param>
-        /// <returns></returns>
-        public static int GetFJMLength(string dictCode)
-        {
-            return 4;
-        }
+        //public static DataSet GetModelSchema(string mdmModelId)
+        //{
+        //    DataSet ds = null;
+        //    if (!string.IsNullOrWhiteSpace(mdmModelId))
+        //    {
+        //        GSPDataAccessEngine daEngine = GSPDataAccessEngine.GetDataAccessEngine();
+        //        ds = daEngine.GetObjectDataSet(mdmModelId, "", DataQueryType.QueryForCart);
+        //    }
+        //    return ds;
+        //}
 
         /// <summary>
         /// 通过导入的一条数据的code、layer、parentCode 获取该条数据生成的FJM、正确级数、父级内码
@@ -119,6 +109,13 @@ namespace FinanceMs.Common
             //操作员
             string userName = GSPContext.Current.Session.UserName;
             return userName;
+        }
+
+
+        public static int AdjustStateByNM(string curentNM, string newParentNM)
+        {
+
+            return 1;
         }
     }
 }
