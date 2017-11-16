@@ -110,17 +110,17 @@ namespace FinanceMs.Import
                         // 财政管理级次码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.LevelName))
                         {
-                            sqledit.AppendFormat(" LevelCode={0}, LevelName='{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.LevelName.Trim()), addInfo.LevelName.Trim());
+                            sqledit.AppendFormat(" LevelCode={0}, LevelName='{1}', ", ConvertsData.GetCodeByName("FinAdmLevelCode", addInfo.LevelName.Trim()), addInfo.LevelName.Trim());
                         }
                         // 财政管理级次标识码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.MarkName))
                         {
-                            sqledit.AppendFormat(" MarkCode={0}, MarkName='{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.MarkName.Trim()), addInfo.MarkName.Trim());
+                            sqledit.AppendFormat(" MarkCode={0}, MarkName='{1}', ", ConvertsData.GetCodeByName("FinAdmLevelMarkCode", addInfo.MarkName.Trim()), addInfo.MarkName.Trim());
                         }
                         // 东中西部码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.DZXBName))
                         {
-                            sqledit.AppendFormat(" DZXBCode={0} , DZXBName='{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.DZXBName.Trim()), addInfo.DZXBName.Trim());
+                            sqledit.AppendFormat(" DZXBCode={0} , DZXBName='{1}', ", ConvertsData.GetCodeByName("EMWCode", addInfo.DZXBName.Trim()), addInfo.DZXBName.Trim());
                         }
                         sqledit.AppendFormat(" PinYin='{0}',JianPin='{1}', Note='{2}', ", addInfo.PinYin, addInfo.JianPin, addInfo.Note);
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
@@ -148,9 +148,9 @@ namespace FinanceMs.Import
                         addSql.AppendLine("  DZXBCode,DZXBName,Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
                         // 财政管理级次
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.LevelName), addInfo.LevelName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FinAdmLevelCode", addInfo.LevelName), addInfo.LevelName);
                         // 财政管理级次标识
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.MarkName), addInfo.MarkName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FinAdmLevelMarkCode", addInfo.MarkName), addInfo.MarkName);
                         // 父级信息
                         if (resModel.NewLayer != 1)
                         {
@@ -162,7 +162,7 @@ namespace FinanceMs.Import
                         }
                         addSql.AppendFormat(" '{0}','{1}', ", addInfo.PinYin, addInfo.JianPin);
                         // 东中西部
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("码表内码", addInfo.DZXBName), addInfo.DZXBName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("EMWCode", addInfo.DZXBName), addInfo.DZXBName);
 
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
