@@ -43,16 +43,8 @@ namespace FinanceMs.Common
             switch (dictName)
             {
                 case "MDMXZQH":
-                    nmField = "NM";
-                    codeField = "code";
-                    layerField = "layer";
-                    break;
                 case "MDMIndustry":
                 case "MDMCSZD":
-                    nmField = "NM";
-                    codeField = "code";
-                    layerField = "layer";
-                    break;
                 case "MDMAgency":
                 case "MDMZGBM":
                     nmField = "NM";
