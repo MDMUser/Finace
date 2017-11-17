@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace FinanceMs.Common.Models
 {
-    public class MDMXZQH
+    public class MDMZGBM
     {
         /// <summary>
         /// GUID
@@ -15,72 +15,39 @@ namespace FinanceMs.Common.Models
         public string NM { get; set; }
 
         /// <summary>
-        /// 区划代码
+        /// 部门代码
         /// </summary>
-        [Description("区划代码")]
+        [Description("部门代码")]
         public string Code { get; set; }
 
         /// <summary>
-        /// 区划名称
+        /// 部门名称
         /// </summary>
-        [Description("区划名称")]
+        [Description("部门名称")]
         public string Name { get; set; }
 
         /// <summary>
-        /// 财政管理级次代码
+        /// 部门地址
         /// </summary>
-        public string LevelCode { get; set; }
+        [Description("部门地址")]
+        public string Address { get; set; }
 
         /// <summary>
-        /// 财政管理级次名称
+        /// 部门联系电话
         /// </summary>
-        [Description("财政管理级次")]
-        public string LevelName { get; set; }
+        [Description("部门联系电话")]
+        public string Phone { get; set; }
 
         /// <summary>
-        /// 财政管理级次标识代码
-        /// </summary>
-        public string MarkCode { get; set; }
-
-        /// <summary>
-        /// 财政管理级次标识名称
-        /// </summary>
-        [Description("财政管理级次标识")]
-        public string MarkName { get; set; }
-
-        /// <summary>
-        /// 上级区划NM
+        /// 上级部门NM
         /// </summary>
         public string ParentNM { get; set; }
 
         /// <summary>
-        /// 上级区划代码
+        /// 上级部门代码
         /// </summary>
-        [Description("上级区划代码")]
+        [Description("上级部门代码")]
         public string ParentCode { get; set; }
-
-        /// <summary>
-        /// 字母拼音
-        /// </summary>
-        [Description("字母拼音")]
-        public string PinYin { get; set; }
-
-        /// <summary>
-        /// 拼音缩写
-        /// </summary>
-        [Description("拼音缩写")]
-        public string JianPin { get; set; }
-
-        /// <summary>
-        /// 东中西部代码
-        /// </summary>
-        public string DZXBCode { get; set; }
-
-        /// <summary>
-        /// 东中西部名称
-        /// </summary>
-        [Description("东中西部")]
-        public string DZXBName { get; set; }
 
         /// <summary>
         /// 备注
@@ -141,3 +108,5 @@ namespace FinanceMs.Common.Models
         public DateTime LastModifiedTime { get; set; }
     }
 }
+
+
