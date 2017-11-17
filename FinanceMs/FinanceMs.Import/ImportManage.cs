@@ -23,7 +23,6 @@ namespace FinanceMs.Import
                 case "MDMXZQH":
                     psMsg = new XZQHOperate().ImportData(dsData);
                     break;
-<<<<<<< HEAD
                 case "MDMIndustry":
                     psMsg = new MDMIndustryOperate().ImportData(dsData);
                     break;

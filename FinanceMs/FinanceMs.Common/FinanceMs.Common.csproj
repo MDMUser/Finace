@@ -70,6 +70,8 @@
     <Compile Include="EnumType.cs" />
     <Compile Include="Models\MDMAgency.cs" />
     <Compile Include="Models\MDMIndustry.cs" />
+    <Compile Include="Models\MDMCSZD.cs" />
+    <Compile Include="Models\MDMZGBM.cs" />
     <Compile Include="Models\ResNewFJM.cs" />
     <Compile Include="Models\MDMXZQH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
