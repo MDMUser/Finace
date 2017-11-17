@@ -25,12 +25,12 @@ namespace FinanceMs.Import
                 case "MDMXZQH":
                     result = new XZQHOperate().ExportData(psWhere);
                     break;
-<<<<<<< HEAD
                 case "MDMIndustry":
                     result = new MDMIndustryOperate().ExportData(psWhere);
                     break;
                 case "MDMAgency":
                     result = new MDMAgencyOperate().ExportData(psWhere);
+                    break;
                 case "MDMCSZD":
                     result = new CSZDOperate().ExportData(psWhere);
                     break;

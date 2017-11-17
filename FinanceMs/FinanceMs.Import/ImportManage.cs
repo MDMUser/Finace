@@ -28,6 +28,7 @@ namespace FinanceMs.Import
                     break;
                 case "MDMAgency":
                     psMsg = new MDMAgencyOperate().ImportData(dsData);
+                    break;
                 case "MDMCSZD":
                     psMsg = new CSZDOperate().ImportData(dsData);
                     break;
