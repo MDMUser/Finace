@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportManage.cs" />
+    <Compile Include="MDMAgencyOperate.cs" />
+    <Compile Include="MDMIndustryOperate.cs" />
     <Compile Include="OutManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XZQHOperate.cs" />

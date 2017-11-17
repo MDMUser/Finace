@@ -64,6 +64,8 @@
     <Compile Include="ConvertsData.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="EnumType.cs" />
+    <Compile Include="Models\MDMAgency.cs" />
+    <Compile Include="Models\MDMIndustry.cs" />
     <Compile Include="Models\ResNewFJM.cs" />
     <Compile Include="Models\MDMXZQH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
