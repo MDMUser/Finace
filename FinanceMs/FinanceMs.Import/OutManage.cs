@@ -25,6 +25,12 @@ namespace FinanceMs.Import
                 case "MDMXZQH":
                     result = new XZQHOperate().ExportData(psWhere);
                     break;
+                case "MDMIndustry":
+                    result = new MDMIndustryOperate().ExportData(psWhere);
+                    break;
+                case "MDMAgency":
+                    result = new MDMAgencyOperate().ExportData(psWhere);
+                    break;
                 default:
                     psMsg += "尚未配置字典【" + psZdbh + "】的导出程序，请联系系统管理员！";
                     break;

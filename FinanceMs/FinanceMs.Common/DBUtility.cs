@@ -57,6 +57,16 @@ namespace FinanceMs.Common
                     codeField = "code";
                     layerField = "layer";
                     break;
+                case "MDMIndustry":
+                    nmField = "NM";
+                    codeField = "code";
+                    layerField = "layer";
+                    break;
+                case "MDMAgency":
+                    nmField = "NM";
+                    codeField = "code";
+                    layerField = "layer";
+                    break;
                 case "":
                     break;
             }
