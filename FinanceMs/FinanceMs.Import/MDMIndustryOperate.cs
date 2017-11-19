@@ -109,7 +109,11 @@ namespace FinanceMs.Import
 
                         sqledit.AppendFormat("UPDATE MDMIndustry SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);
                         sqledit.AppendFormat(" Note='{0}', ", addInfo.Note);
-                        sqledit.AppendFormat(" Type= '{0}',", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
+                        if (Enum.IsDefined(typeof(EnumIndustryType), ConvertsData.ValidNullString(addInfo.Type, "")))
+                        {
+                            sqledit.AppendFormat(" Type= '{0}',", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
+                        }
+
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         sqledit.AppendFormat(" Where NM = '{0}' ", resModel.NM);
                         db.ExecuteSQL(sqledit.ToString());
@@ -134,8 +138,14 @@ namespace FinanceMs.Import
                         addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name, Type, ParentNM,ParentCode, ");
                         addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
-
-                        addSql.AppendFormat(" '{0}', ", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
+                        if (Enum.IsDefined(typeof(EnumIndustryType), ConvertsData.ValidNullString(addInfo.Type, "")))
+                        {
+                            addSql.AppendFormat(" '{0}', ", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
+                        }
+                        else
+                        {
+                            addSql.Append("  '', ");
+                        }
                         // 父级信息
                         if (resModel.NewLayer != 1)
                         {

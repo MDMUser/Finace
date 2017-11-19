@@ -89,19 +89,19 @@ namespace FinanceMs.Common
         /// <summary>
         /// 门
         /// </summary>
-        men = 0,
+        门 = 0,
         /// <summary>
         /// 大
         /// </summary>
-        da = 1,
+        大 = 1,
         /// <summary>
         /// 中
         /// </summary>
-        zhong = 2,
+        中 = 2,
         /// <summary>
         /// 小
         /// </summary>
-        xiao = 3
+        小 = 3
     }
 
     /// <summary>

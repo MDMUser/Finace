@@ -31,16 +31,16 @@ namespace FinanceMs.Common.Models
         [Description("行业类别")]
         public string Type { get; set; }
 
-        
+
         /// <summary>
-        /// 上级区划内码NM
+        /// 上级行业内码NM
         /// </summary>
         public string ParentNM { get; set; }
 
         /// <summary>
-        /// 上级区划编号
+        /// 上级行业编号
         /// </summary>
-        [Description("上级区划编号")]
+        [Description("上级行业编码")]
         public string ParentCode { get; set; }      
 
         /// <summary>

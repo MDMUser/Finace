@@ -28,6 +28,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 组织机构代码
         /// </summary>
+        [Description("组织机构代码")]
         public string OrgCode { get; set; }
 
         /// <summary>

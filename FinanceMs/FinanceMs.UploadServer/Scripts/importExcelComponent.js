@@ -1293,6 +1293,7 @@ jQuery.FinaceExcelImport = function (param, callBack) {
                 var result = JSON.parse(data);
                 if (result.result == "0") {
                     $.notify.success("上传成功！");
+                    callBack();
                 } else {
                     var vsMsg = result.context;
                     vsMsg = vsMsg.replace(/\+/g, ' ');
