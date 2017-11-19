@@ -108,8 +108,8 @@ namespace FinanceMs.Import
                         StringBuilder sqledit = new StringBuilder();
 
                         sqledit.AppendFormat("UPDATE MDMIndustry SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);
-                        sqledit.AppendFormat(" ParentNM='{0}',ParentCode='{1}', ", resModel.ParentNM, addInfo.ParentCode);
-                        sqledit.AppendFormat(" Note='{2}', ", addInfo.Note);
+                        sqledit.AppendFormat(" Note='{0}', ", addInfo.Note);
+                        sqledit.AppendFormat(" Type= '{0}',", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         sqledit.AppendFormat(" Where NM = '{0}' ", resModel.NM);
                         db.ExecuteSQL(sqledit.ToString());
@@ -131,10 +131,11 @@ namespace FinanceMs.Import
                         }
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
-                        addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name,ParentNM,ParentCode, ");
+                        addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name, Type, ParentNM,ParentCode, ");
                         addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
 
+                        addSql.AppendFormat(" '{0}', ", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
                         // 父级信息
                         if (resModel.NewLayer != 1)
                         {
@@ -180,10 +181,11 @@ namespace FinanceMs.Import
         public DataSet ExportData(string where)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(" SELECT a.Code 行业编码,a.Name 行业名称,b.Name 上级行业名称, ");
+            sb.AppendLine(" SELECT a.Code 行业编码,a.Name 行业名称,case  a.Type when '0' then '门' when '1' then '大' when '2' then '中' END 行业类别, b.Name 上级行业名称, ");
             sb.AppendLine(" a.Note 备注,a.Layer 级数, a.IsDetail 是否明细 ");
-            sb.AppendLine(" FROM MDMIndustry a left join MDMIndustry b on a.parentNM = b.NM  WHERE a.TYBZ='0' and a.AuditState='2'");
+            sb.AppendLine(" FROM MDMIndustry a left join MDMIndustry b on a.parentNM = b.NM  WHERE a.TYBZ='0' and a.AuditState='2' ");
             sb.AppendLine(where);
+            sb.AppendLine(" order by a.layer ");
             DataSet ds = db.ExecuteSQL(sb.ToString());
             return ds;
         }

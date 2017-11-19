@@ -82,6 +82,29 @@ namespace FinanceMs.Common
     }
 
     /// <summary>
+    /// 行业类别
+    /// </summary>
+    public enum EnumIndustryType
+    {
+        /// <summary>
+        /// 门
+        /// </summary>
+        men = 0,
+        /// <summary>
+        /// 大
+        /// </summary>
+        da = 1,
+        /// <summary>
+        /// 中
+        /// </summary>
+        zhong = 2,
+        /// <summary>
+        /// 小
+        /// </summary>
+        xiao = 3
+    }
+
+    /// <summary>
     /// 调整级次返回结果
     /// </summary>
     public enum EnumAdjustState
