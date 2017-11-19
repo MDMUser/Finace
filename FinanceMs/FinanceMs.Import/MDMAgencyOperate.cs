@@ -9,9 +9,9 @@ using FinanceMs.Common;
 
 namespace FinanceMs.Import
 {
-    public  class MDMAgencyOperate
+    public class MDMAgencyOperate
     {
-        
+
         private readonly DataBaseEx db = new DataBaseEx();
 
         #region 导入
@@ -31,7 +31,7 @@ namespace FinanceMs.Import
             {
                 DataTable dtData = data.Tables[tableCount];
                 // ①判断excel表格的合理性
-                string[] list = { "单位层次代码", "单位名称", "单位层次","级数", "是否明细" };
+                string[] list = { "单位层次代码", "单位名称", "级数", "是否明细" };
                 msg = Verification.ImportColumns(data.Tables[0].Columns, list);
                 if (!string.IsNullOrWhiteSpace(msg))
                     return msg;
@@ -75,7 +75,7 @@ namespace FinanceMs.Import
                 }
                 catch (Exception ex)
                 {
-                    
+
                     return ex.Message;
                 }
 
@@ -212,8 +212,8 @@ namespace FinanceMs.Import
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.XZTypeName), addInfo.XZTypeName);
                         // 经费供给方式
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.FundsupName), addInfo.FundsupName);
-                       
-                       
+
+
 
                         // 父级信息
                         if (resModel.NewLayer != 1)
@@ -224,8 +224,8 @@ namespace FinanceMs.Import
                         {
                             addSql.AppendFormat(" '', '', ");
                         }
-                        
-                        
+
+
 
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
@@ -267,7 +267,7 @@ namespace FinanceMs.Import
             sb.AppendLine(" a.XZTypeName  性质分类, b.Name 上级单位名称, a.FundsupName 经费供给方式, a.Fax 传真, a.Tel 电话, a.Address 地址, ");
             sb.AppendLine(" a.Note 备注, a.IsDetail 是否明细, a.TYBZ 停用标志, a.TYND 停用年度, a.AuditState 审批状态, ");
             sb.AppendLine(" a.Createuser 创建人, a.Createtime 创建时间, a.LastModifiedUser 最后修改人, a.LastModifiedTime 最后修改时间");
-            sb.AppendLine(" FROM MDMAgency a LEFT JOIN MDMAgency b ON a.ParentNM = b.NM ");                            
+            sb.AppendLine(" FROM MDMAgency a LEFT JOIN MDMAgency b ON a.ParentNM = b.NM WHERE a.TYBZ='0' and a.AuditState='2'");
             sb.AppendLine(where);
             DataSet ds = db.ExecuteSQL(sb.ToString());
             return ds;

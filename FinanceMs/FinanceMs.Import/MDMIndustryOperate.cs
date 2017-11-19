@@ -9,7 +9,7 @@ using FinanceMs.Common.Models;
 
 namespace FinanceMs.Import
 {
-    public  class MDMIndustryOperate
+    public class MDMIndustryOperate
     {
         private readonly DataBaseEx db = new DataBaseEx();
 
@@ -72,7 +72,7 @@ namespace FinanceMs.Import
                     }
                 }
                 catch (Exception ex)
-                {                  
+                {
                     return ex.Message;
                 }
 
@@ -107,7 +107,7 @@ namespace FinanceMs.Import
                         // 修改该条数据基本信息
                         StringBuilder sqledit = new StringBuilder();
 
-                        sqledit.AppendFormat("UPDATE MDMIndustry SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);                       
+                        sqledit.AppendFormat("UPDATE MDMIndustry SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);
                         sqledit.AppendFormat(" ParentNM='{0}',ParentCode='{1}', ", resModel.ParentNM, addInfo.ParentCode);
                         sqledit.AppendFormat(" Note='{2}', ", addInfo.Note);
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
@@ -134,7 +134,7 @@ namespace FinanceMs.Import
                         addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name,ParentNM,ParentCode, ");
                         addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
-                      
+
                         // 父级信息
                         if (resModel.NewLayer != 1)
                         {
@@ -143,7 +143,7 @@ namespace FinanceMs.Import
                         else
                         {
                             addSql.AppendFormat(" '', '', ");
-                        }                      
+                        }
 
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
@@ -182,7 +182,7 @@ namespace FinanceMs.Import
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(" SELECT a.Code 行业编码,a.Name 行业名称,b.Name 上级行业名称, ");
             sb.AppendLine(" a.Note 备注,a.Layer 级数, a.IsDetail 是否明细 ");
-            sb.AppendLine(" FROM MDMIndustry a left join MDMIndustry b on a.parentNM = b.NM ");
+            sb.AppendLine(" FROM MDMIndustry a left join MDMIndustry b on a.parentNM = b.NM  WHERE a.TYBZ='0' and a.AuditState='2'");
             sb.AppendLine(where);
             DataSet ds = db.ExecuteSQL(sb.ToString());
             return ds;

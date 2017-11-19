@@ -35,7 +35,6 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 上级区划内码NM
         /// </summary>
-        [Description("上级区划内码")]
         public string ParentNM { get; set; }
 
         /// <summary>
