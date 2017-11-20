@@ -184,7 +184,7 @@ namespace FinanceMs.Import
                         addSql.AppendLine(" SupDepNM, SupDepName, AdmLevelCode,AdmLevelName, XZTypeCode,XZTypeName, ");
                         addSql.AppendLine(" ParentNM,ParentCode,FundSupCode,FundsupName,Fax,Tel,Address, ");
                         addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ, AuditState, Createuser, Createtime ) VALUES  (  ");
-                        addSql.AppendFormat("'{0}','{1}','{2}','{3}' ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode);
+                        addSql.AppendFormat("'{0}','{1}','{2}','{3}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode);
                         // 单位类型
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AgencyType", addInfo.TypeName), addInfo.TypeName);
                         // 单位级次
