@@ -110,6 +110,10 @@ namespace FinanceMs.Common
     public enum EnumAdjustState
     {
         /// <summary>
+        /// 调用失败
+        /// </summary>
+        failure = -1,
+        /// <summary>
         /// 成功
         /// </summary>
         ok = 0,

@@ -94,5 +94,57 @@ namespace FinanceMs.Common
             return userName;
         }
 
+        /// <summary>
+        /// 修改父级信息-调整级次
+        /// </summary>
+        /// <param name="db">数据库操作类</param>
+        /// <param name="dictName">字典名称</param>
+        /// <param name="curentNM">当前需要调整的内码</param>
+        /// <param name="newParentNM">待调整到的新的父级内码</param>
+        /// <returns></returns>
+        public static int ChangeParentInfoByDict(DataBaseEx db, string dictName, string curentNM, string newParentNM)
+        {
+            int result = (int)EnumAdjustState.failure;
+            // 内码字典名称、编号字段名称、级数字段名称
+            string nmField = "", codeField = "", layerField = "", parentNMField = "", parentCodeField = "";
+            // 后期改为从系统字典表中获取
+            switch (dictName)
+            {
+                case "MDMXZQH":
+                case "MDMIndustry":
+                case "MDMCSZD":
+                case "MDMAgency":
+                case "MDMZGBM":
+                    nmField = "NM";
+                    codeField = "code";
+                    layerField = "layer";
+                    parentNMField = "ParentNM";
+                    parentCodeField = "ParentCode";
+                    break;
+                case "":
+                    break;
+            }
+            if (!string.IsNullOrWhiteSpace(curentNM) && !string.IsNullOrWhiteSpace(newParentNM))
+            {
+                db.ResultNum = 1;
+                DataSet ds = new DataSet();
+                IDbDataParameter[] param = new IDbDataParameter[8];
+                db.MakeInParam("@DictName", dictName, out param[0]);
+                db.MakeInParam("@NMName", nmField, out param[1]);
+                db.MakeInParam("@CodeName", codeField, out param[2]);
+                db.MakeInParam("@LayerName", layerField, out param[3]);
+                db.MakeInParam("@ParentNMName", parentNMField, out param[4]);
+                db.MakeInParam("@ParentCodeName", parentCodeField, out param[5]);
+                db.MakeInParam("@CurrentNM", curentNM, out param[6]);
+                db.MakeInParam("@NewParentNM", newParentNM, out param[7]);
+                db.RunProc("MDM_FinanceDict_AdjustState", param, out ds);
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    int.TryParse(ds.Tables[0].Rows[0][0].ToString(), out result);
+                }
+            }
+            return result;
+        }
+
     }
 }
