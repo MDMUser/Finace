@@ -14,17 +14,6 @@ namespace FinanceMs.Common
 {
     public static class DBUtility
     {
-        //public static DataSet GetModelSchema(string mdmModelId)
-        //{
-        //    DataSet ds = null;
-        //    if (!string.IsNullOrWhiteSpace(mdmModelId))
-        //    {
-        //        GSPDataAccessEngine daEngine = GSPDataAccessEngine.GetDataAccessEngine();
-        //        ds = daEngine.GetObjectDataSet(mdmModelId, "", DataQueryType.QueryForCart);
-        //    }
-        //    return ds;
-        //}
-
         /// <summary>
         /// 通过导入的一条数据的code、layer、parentCode 获取该条数据生成的FJM、正确级数、父级内码
         /// </summary>
@@ -105,11 +94,5 @@ namespace FinanceMs.Common
             return userName;
         }
 
-
-        public static int AdjustStateByNM(string curentNM, string newParentNM)
-        {
-
-            return 1;
-        }
     }
 }

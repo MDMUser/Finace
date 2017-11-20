@@ -56,7 +56,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 行业代码
         /// </summary>
-        public string IndCode { get; set; }
+        public string IndNM { get; set; }
 
         /// <summary>
         /// 行业名称
@@ -89,7 +89,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 部门标识代码
         /// </summary>
-        public string SupDepCode { get; set; }
+        public string SupDepNM { get; set; }
 
         /// <summary>
         /// 部门标识名称

@@ -131,40 +131,31 @@ namespace FinanceMs.Import
                         {
                             sqledit.AppendFormat(" MOFDepCode={0} , MOFDepName='{1}', ", ConvertsData.GetCodeByName("MOFDept", addInfo.MOFDepName.Trim()), addInfo.MOFDepName.Trim());
                         }
-
-
                         // 单位行政级别码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.AdmLevelName))
                         {
                             sqledit.AppendFormat(" AdmLevelCode={0} , AdmLevelName='{1}', ", ConvertsData.GetCodeByName("AdmLevel", addInfo.AdmLevelName.Trim()), addInfo.AdmLevelName.Trim());
                         }
-
                         // 性质分类码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.PerKindName))
                         {
                             sqledit.AppendFormat(" XZTypeCode={0} , XZTypeName='{1}', ", ConvertsData.GetCodeByName("PropertyType", addInfo.XZTypeName.Trim()), addInfo.XZTypeName.Trim());
                         }
-
                         // 经费供给方式
                         if (!string.IsNullOrWhiteSpace(addInfo.FundsupName))
                         {
                             sqledit.AppendFormat(" FundsupCode={0} , FundsupName='{1}', ", ConvertsData.GetCodeByName("FundSupply", addInfo.FundsupName.Trim()), addInfo.FundsupName.Trim());
                         }
-
-
                         // 行业关联表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.IndName))
                         {
-                            sqledit.AppendFormat(" IndCode={0} , IndName='{1}', ", ConvertsData.GetCodeByName("", addInfo.IndName.Trim()), addInfo.IndName.Trim());
+                            sqledit.AppendFormat(" IndNM=(select NM from MDMIndustry where Name = '{0}') , IndName='{0}', ", addInfo.IndName.Trim());
                         }
-
-
                         // 部门表示关联表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.FundsupName))
                         {
-                            sqledit.AppendFormat(" SupDepCode={0} , SupDepName='{1}', ", ConvertsData.GetCodeByName("", addInfo.SupDepName.Trim()), addInfo.SupDepName.Trim());
+                            sqledit.AppendFormat(" SupDepCode= (select NM from MDMZGBM where Name = '{0}') , SupDepName='{0}', ", addInfo.SupDepName.Trim());
                         }
-
                         sqledit.AppendFormat(" Address='{0}', Note='{1}', ", addInfo.Address, addInfo.Note);
                         sqledit.AppendFormat(" Fax='{0}',Tel='{1}', ", addInfo.Fax, addInfo.Tel);
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
@@ -188,31 +179,45 @@ namespace FinanceMs.Import
                         }
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
-                        addSql.AppendLine(" INSERT INTO MDMAgency ( NM, Code, Name, OrgCode,TypeName,TypeCode,LevelName,LevelCode, ");
-                        addSql.AppendLine(" IndName,IndCode,PerKindName,PerKindCode,MOFDepName,MOFDepCode, ");
-                        addSql.AppendLine(" SupDepName,SupDepCode,AdmLevelName,AdmLevelCode,XZTypeName,XZTypeCode, ");
+                        addSql.AppendLine(" INSERT INTO MDMAgency ( NM, Code, Name, OrgCode,TypeCode,TypeName,LevelCode, LevelName,");
+                        addSql.AppendLine("  IndNM,IndName,PerKindCode, PerKindName, MOFDepCode, MOFDepName, ");
+                        addSql.AppendLine(" SupDepNM, SupDepName, AdmLevelCode,AdmLevelName, XZTypeCode,XZTypeName, ");
                         addSql.AppendLine(" ParentNM,ParentCode,FundSupCode,FundsupName,Fax,Tel,Address, ");
-                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ,TYND,AuditState,isTrans,Transcope,Createuser, Createtime ) VALUES  (  ");
-                        addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
+                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ, AuditState, Createuser, Createtime ) VALUES  (  ");
+                        addSql.AppendFormat("'{0}','{1}','{2}','{3}' ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode);
                         // 单位类型
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.TypeName), addInfo.TypeName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AgencyType", addInfo.TypeName), addInfo.TypeName);
                         // 单位级次
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.LevelName), addInfo.LevelName);
-                        // 行业关联
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.IndName), addInfo.IndName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AgencyLevel", addInfo.LevelName), addInfo.LevelName);
+                        // 行业关联表对接
+                        if (!string.IsNullOrWhiteSpace(addInfo.IndName))
+                        {
+                            // 行业关联
+                            addSql.AppendFormat(" (select NM from MDMIndustry where Name = '{0}') ,'{0}', ", addInfo.IndName.Trim());
+                        }
+                        else
+                        {
+                            addSql.Append(" '','',");
+                        }
                         // 人员情况
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.PerKindName), addInfo.PerKindName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("PersonKind", addInfo.PerKindName), addInfo.PerKindName);
                         // 财政部内部机构
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.MOFDepName), addInfo.MOFDepName);
-                        // 部门关联
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.SupDepName), addInfo.SupDepName);
-                        // 单位行政级别
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.AdmLevelName), addInfo.AdmLevelName);
-                        // 性质分类
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.XZTypeName), addInfo.XZTypeName);
-                        // 经费供给方式
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("", addInfo.FundsupName), addInfo.FundsupName);
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("MOFDept", addInfo.MOFDepName), addInfo.MOFDepName);
 
+                        // 部门关联
+                        if (!string.IsNullOrWhiteSpace(addInfo.FundsupName))
+                        {
+                            addSql.AppendFormat(" (select NM from MDMZGBM where Name = '{0}') , '{0}', ", addInfo.SupDepName.Trim());
+                        }
+                        else
+                        {
+                            addSql.Append(" '', '', ");
+                        }
+
+                        // 单位行政级别
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AdmLevel", addInfo.AdmLevelName), addInfo.AdmLevelName);
+                        // 性质分类
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("PropertyType", addInfo.XZTypeName), addInfo.XZTypeName);
 
 
                         // 父级信息
@@ -224,11 +229,11 @@ namespace FinanceMs.Import
                         {
                             addSql.AppendFormat(" '', '', ");
                         }
-
-
-
+                        // 经费供给方式
+                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FundSupply", addInfo.FundsupName), addInfo.FundsupName);
+                        addSql.AppendFormat("'{0}','{1}', '{2}' , ", addInfo.Fax, addInfo.Tel, addInfo.Address);
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
-                        addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
+                        addSql.AppendFormat("'{0}','{1}',  ", (int)EnumTYBZ.enabled, (int)EnumAuditState.pass);
                         addSql.AppendFormat("'{0}',{1}) ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         db.ExecuteSQL(addSql.ToString());
                     }
@@ -262,7 +267,7 @@ namespace FinanceMs.Import
         public DataSet ExportData(string where)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(" SELECT a.NM 单位内码, a.Code 单位编号, a.Name 单位名称, a.OrgCode 组织机构代码,a.TypeName 单位类型, a.LevelName 单位级次, ");
+            sb.AppendLine(" SELECT  a.Code 单位层次代码, a.Name 单位名称, a.Layer 级数, a.OrgCode 组织机构代码,a.TypeName 单位类型, a.LevelName 单位级次, ");
             sb.AppendLine(" a.IndName 行业名称, a.PerKindName 人员情况, a.MOFDepName 财政部内部机构, a.SupDepName 部门名称, a.AdmLevelName  单位行政级别名称, ");
             sb.AppendLine(" a.XZTypeName  性质分类, b.Name 上级单位名称, a.FundsupName 经费供给方式, a.Fax 传真, a.Tel 电话, a.Address 地址, ");
             sb.AppendLine(" a.Note 备注, a.IsDetail 是否明细 ");
