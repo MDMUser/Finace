@@ -44,6 +44,9 @@
     <Reference Include="genersoft.platform.resource.component">
       <HintPath>..\..\..\..\..\..\..\..\山东省财政厅\03代码库\DRP_Refer.Dll\GSP\genersoft.platform.resource.component.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json70">
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\Newtonsoft.Json70.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebXZQHComponent.cs" />
+    <Compile Include="WebAdjustLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinanceMs.Common\FinanceMs.Common.csproj">

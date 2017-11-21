@@ -127,8 +127,7 @@ namespace FinanceMs.Common
             if (!string.IsNullOrWhiteSpace(curentNM) && !string.IsNullOrWhiteSpace(newParentNM))
             {
                 db.ResultNum = 1;
-                DataSet ds = new DataSet();
-                IDbDataParameter[] param = new IDbDataParameter[8];
+                IDbDataParameter[] param = new IDbDataParameter[9];
                 db.MakeInParam("@DictName", dictName, out param[0]);
                 db.MakeInParam("@NMName", nmField, out param[1]);
                 db.MakeInParam("@CodeName", codeField, out param[2]);
@@ -137,11 +136,9 @@ namespace FinanceMs.Common
                 db.MakeInParam("@ParentCodeName", parentCodeField, out param[5]);
                 db.MakeInParam("@CurrentNM", curentNM, out param[6]);
                 db.MakeInParam("@NewParentNM", newParentNM, out param[7]);
-                db.RunProc("MDM_FinanceDict_AdjustState", param, out ds);
-                if (ds != null && ds.Tables.Count > 0)
-                {
-                    int.TryParse(ds.Tables[0].Rows[0][0].ToString(), out result);
-                }
+                db.MakeOutParam("@OUTPRODUCTCODE", GSPDbDataType.VarChar, 1000, out param[8]);
+                db.RunProc("MDM_FinanceDict_AdjustState", param);
+                int.TryParse(param[8].Value.ToString(), out result);
             }
             return result;
         }
