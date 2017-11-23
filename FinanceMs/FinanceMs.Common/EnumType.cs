@@ -118,9 +118,9 @@ namespace FinanceMs.Common
         /// </summary>
         ok = 0,
         /// <summary>
-        /// 信息不全
+        /// 逻辑业务错误
         /// </summary>
-        infoEmpty = 1,
+        busIssue = 1,
         /// <summary>
         /// 信息无效
         /// </summary>

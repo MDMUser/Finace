@@ -27,13 +27,13 @@ namespace FinaceMs.WebDictHelper
         {
             int code;
             string context = "";
-            if (!string.IsNullOrWhiteSpace(curentNM) && !string.IsNullOrWhiteSpace(newParentNM))
+            if (!string.IsNullOrWhiteSpace(curentNM))
             {
                 code = DBUtility.ChangeParentInfoByDict(db, dictName, curentNM, newParentNM);
             }
             else
             {
-                code = (int)EnumAdjustState.infoEmpty;
+                code = (int)EnumAdjustState.infoFail;
             }
             switch (code)
             {
@@ -44,10 +44,10 @@ namespace FinaceMs.WebDictHelper
                     context = "成功";
                     break;
                 case (int)EnumAdjustState.infoFail:
-                    context = "所传内码不存在";
+                    context = "所传内码无效";
                     break;
-                case (int)EnumAdjustState.infoEmpty:
-                    context = "所传内码有空值";
+                case (int)EnumAdjustState.busIssue:
+                    context = "不允许将父级节点调整到子集节点下";
                     break;
                 case (int)EnumAdjustState.unchanged:
                     context = "父级节点未改变，无需调整";
