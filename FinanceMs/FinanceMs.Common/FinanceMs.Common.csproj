@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Genersoft.MDM.NetLog.Server, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.NetLog.Server.dll</HintPath>
+    </Reference>
     <Reference Include="Genersoft.MDM.Pub.Common">
       <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Common.dll</HintPath>
     </Reference>
@@ -68,6 +72,7 @@
     <Compile Include="ConvertsData.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="EnumType.cs" />
+    <Compile Include="FinaceLog.cs" />
     <Compile Include="Models\MDMAgency.cs" />
     <Compile Include="Models\MDMIndustry.cs" />
     <Compile Include="Models\MDMCSZD.cs" />

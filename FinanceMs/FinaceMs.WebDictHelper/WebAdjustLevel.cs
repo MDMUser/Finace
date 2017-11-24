@@ -16,6 +16,7 @@ namespace FinaceMs.WebDictHelper
     public class WebAdjustLevel : BaseBizComponent
     {
         private readonly DataBaseEx db = new DataBaseEx();
+        private readonly FinaceLog log = new FinaceLog();
         /// <summary>
         /// 调整级次
         /// </summary>
@@ -29,6 +30,8 @@ namespace FinaceMs.WebDictHelper
             string context = "";
             if (!string.IsNullOrWhiteSpace(curentNM))
             {
+                // 调整级次
+                log.Info(DBUtility.GetOperateUserCode() + "进行级次调整:将 " + curentNM + " 调整到 " + newParentNM);
                 code = DBUtility.ChangeParentInfoByDict(db, dictName, curentNM, newParentNM);
             }
             else

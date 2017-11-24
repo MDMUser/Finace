@@ -95,6 +95,16 @@ namespace FinanceMs.Common
         }
 
         /// <summary>
+        /// 获取操作员Code
+        /// </summary>
+        /// <returns></returns>
+        public static string GetOperateUserCode()
+        {
+            //操作员
+            string userName = GSPContext.Current.Session.UserCode;
+            return userName;
+        }
+        /// <summary>
         /// 修改父级信息-调整级次
         /// </summary>
         /// <param name="db">数据库操作类</param>
