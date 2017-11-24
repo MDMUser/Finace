@@ -104,7 +104,7 @@ namespace FinanceMs.Common
         /// <returns></returns>
         public static int ChangeParentInfoByDict(DataBaseEx db, string dictName, string curentNM, string newParentNM)
         {
-            int result = (int)EnumAdjustState.failure;
+            int result = (int)EnumAdjustState.infoFail;
             // 内码字典名称、编号字段名称、级数字段名称
             string nmField = "", codeField = "", layerField = "", parentNMField = "", parentCodeField = "";
             // 后期改为从系统字典表中获取
@@ -124,7 +124,7 @@ namespace FinanceMs.Common
                 case "":
                     break;
             }
-            if (!string.IsNullOrWhiteSpace(curentNM) && !string.IsNullOrWhiteSpace(newParentNM))
+            if (!string.IsNullOrWhiteSpace(curentNM))
             {
                 db.ResultNum = 1;
                 IDbDataParameter[] param = new IDbDataParameter[9];
