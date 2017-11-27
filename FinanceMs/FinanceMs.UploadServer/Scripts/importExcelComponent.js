@@ -1240,6 +1240,7 @@ jQuery.FinaceExcelImport = function (param, callBack) {
                 buttons: [{
                     text: '确定',
                     handler: function () {
+                        $.loading({ loadingMsg: '正在导入,请等待！' });
                         $("#" + ids.uploadify).uploadify('upload', '*')
                     }
                 }, {
@@ -1291,6 +1292,7 @@ jQuery.FinaceExcelImport = function (param, callBack) {
             onUploadSuccess: function (file, data, response) {
                 var result = JSON.parse(data);
                 if (result.result == "0") {
+                    $.loaded();
                     $.notify.success("上传成功！");
                     callBack();
                 } else {

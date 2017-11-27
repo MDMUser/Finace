@@ -136,7 +136,7 @@ namespace FinanceMs.Import
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
                         addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name, Type, ParentNM,ParentCode, ");
-                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
+                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
                         if (Enum.IsDefined(typeof(EnumIndustryType), ConvertsData.ValidNullString(addInfo.Type, "")))
                         {
@@ -158,6 +158,7 @@ namespace FinanceMs.Import
 
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
+                        addSql.AppendFormat("'{0}',{1}, ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         addSql.AppendFormat("'{0}',{1}) ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         db.ExecuteSQL(addSql.ToString());
                     }

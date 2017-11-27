@@ -183,7 +183,7 @@ namespace FinanceMs.Import
                         addSql.AppendLine("  IndNM,IndName,PerKindCode, PerKindName, MOFDepCode, MOFDepName, ");
                         addSql.AppendLine(" SupDepNM, SupDepName, AdmLevelCode,AdmLevelName, XZTypeCode,XZTypeName, ");
                         addSql.AppendLine(" ParentNM,ParentCode,FundSupCode,FundsupName,Fax,Tel,Address, ");
-                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ, AuditState, Createuser, Createtime ) VALUES  (  ");
+                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ, AuditState, Createuser, Createtime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}','{3}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode);
                         // 单位类型
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AgencyType", addInfo.TypeName), addInfo.TypeName);
@@ -234,6 +234,7 @@ namespace FinanceMs.Import
                         addSql.AppendFormat("'{0}','{1}', '{2}' , ", addInfo.Fax, addInfo.Tel, addInfo.Address);
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumTYBZ.enabled, (int)EnumAuditState.pass);
+                        addSql.AppendFormat("'{0}',{1}, ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         addSql.AppendFormat("'{0}',{1}) ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         db.ExecuteSQL(addSql.ToString());
                     }

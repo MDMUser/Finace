@@ -39,10 +39,10 @@
       <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Server.dll</HintPath>
     </Reference>
     <Reference Include="genersoft.platform.bizcomponent.basiclib">
-      <HintPath>..\..\..\..\..\..\..\..\山东省财政厅\03代码库\DRP_Refer.Dll\GSP\genersoft.platform.bizcomponent.basiclib.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.bizcomponent.basiclib.dll</HintPath>
     </Reference>
     <Reference Include="genersoft.platform.resource.component">
-      <HintPath>..\..\..\..\..\..\..\..\山东省财政厅\03代码库\DRP_Refer.Dll\GSP\genersoft.platform.resource.component.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.resource.component.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json70">
       <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\Newtonsoft.Json70.dll</HintPath>

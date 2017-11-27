@@ -129,7 +129,7 @@ namespace FinanceMs.Import
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
                         addSql.AppendLine(" INSERT INTO MDMCSZD ( NM, Code, Name, Address, Phone, ParentNM,ParentCode, Note,");
-                        addSql.AppendLine(" FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime ) VALUES  (  ");
+                        addSql.AppendLine(" FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
                         addSql.AppendFormat(" '{0}','{1}', ", addInfo.Address, addInfo.Phone);
                         // 父级信息
@@ -141,8 +141,9 @@ namespace FinanceMs.Import
                         {
                             addSql.AppendFormat(" '', '', ");
                         }
-                        addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
-                        addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
+                        addSql.AppendFormat("'{0}','{1}', {2} ,'{3}', ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
+                        addSql.AppendFormat("'{0}','{1}', ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
+                        addSql.AppendFormat("'{0}',{1}, ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         addSql.AppendFormat("'{0}',{1}) ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         db.ExecuteSQL(addSql.ToString());
                     }
