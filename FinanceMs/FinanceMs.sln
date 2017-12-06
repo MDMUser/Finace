@@ -7,7 +7,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceMs.Common", "Finance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceMs.UploadServer", "FinanceMs.UploadServer\FinanceMs.UploadServer.csproj", "{9A2B7A5E-1F8D-4187-BBFC-09E57192281B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinaceMs.WebDictHelper", "FinaceMs.WebDictHelper\FinaceMs.WebDictHelper.csproj", "{D73FC131-37E3-408D-AD3F-7517D982AC3D}"
+EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 5
+		SccProjectName0 = Firefly\u0020Project
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Hansky\u0020Firefly
+		CanCheckoutShared = false
+		SccProjectUniqueName1 = FinanceMs.Import\\FinanceMs.Import.csproj
+		SccLocalPath1 = FinanceMs.Import
+		CanCheckoutShared = false
+		SccProjectUniqueName2 = FinanceMs.UploadServer\\FinanceMs.UploadServer.csproj
+		SccLocalPath2 = FinanceMs.UploadServer
+		CanCheckoutShared = false
+		SccProjectUniqueName3 = FinanceMs.Common\\FinanceMs.Common.csproj
+		SccLocalPath3 = FinanceMs.Common
+		CanCheckoutShared = false
+		SccProjectUniqueName4 = FinaceMs.WebDictHelper\\FinaceMs.WebDictHelper.csproj
+		SccLocalPath4 = .
+		CanCheckoutShared = false
+		SccProjectFilePathRelativizedFromConnection4 = FinaceMs.WebDictHelper\\
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -25,6 +47,10 @@ Global
 		{9A2B7A5E-1F8D-4187-BBFC-09E57192281B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A2B7A5E-1F8D-4187-BBFC-09E57192281B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A2B7A5E-1F8D-4187-BBFC-09E57192281B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D73FC131-37E3-408D-AD3F-7517D982AC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D73FC131-37E3-408D-AD3F-7517D982AC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D73FC131-37E3-408D-AD3F-7517D982AC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D73FC131-37E3-408D-AD3F-7517D982AC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

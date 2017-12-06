@@ -25,6 +25,10 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <SccProjectName>Firefly Project</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath />
+    <SccProvider>MSSCCI:Hansky Firefly</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,7 +62,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json70">
-      <HintPath>..\..\DRP_Refer.Dll\Newtonsoft.Json70.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\Newtonsoft.Json70.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

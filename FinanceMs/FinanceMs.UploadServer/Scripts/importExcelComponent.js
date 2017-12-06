@@ -1240,6 +1240,7 @@ jQuery.FinaceExcelImport = function (param, callBack) {
                 buttons: [{
                     text: '确定',
                     handler: function () {
+                        $.loading({ loadingMsg: '正在导入,请等待！' });
                         $("#" + ids.uploadify).uploadify('upload', '*')
                     }
                 }, {
@@ -1289,10 +1290,11 @@ jQuery.FinaceExcelImport = function (param, callBack) {
             queueSizeLimit: 1,
             overrideEvents: ['onSelectError', "onCancel", "onUploadError", "onError", 'onDialogClose'],
             onUploadSuccess: function (file, data, response) {
-                debugger;
                 var result = JSON.parse(data);
                 if (result.result == "0") {
+                    $.loaded();
                     $.notify.success("上传成功！");
+                    callBack();
                 } else {
                     var vsMsg = result.context;
                     vsMsg = vsMsg.replace(/\+/g, ' ');
@@ -1330,14 +1332,14 @@ jQuery.FinaceExcelImport = function (param, callBack) {
                 $("#" + ids.uploadify).uploadify('settings', 'formData', {
                     'AppInstanceID': gsp.rtf.context.get('AppInstanceID'),
                     'UserID': gsp.rtf.context.get('UserID'),
-                    'UserCode': gsp.rtf.context.get('UserCode'),
+                    'UserCode': encodeURI(gsp.rtf.context.get('UserCode')),
                     'ProcessID': gsp.rtf.context.get('ProcessID'),
                     'BizDate': gsp.rtf.context.get('BizDate'),
                     'LoginDate': gsp.rtf.context.get('LoginDate'),
                     'FuncID': gsp.rtf.context.get('FuncID'),
                     'ClientIP': gsp.rtf.context.get('ClientIP'),
                     'FrameType': gsp.rtf.context.get('FrameType'),
-                    'UserName': gsp.rtf.context.get('UserName'),
+                    'UserName':  encodeURI(gsp.rtf.context.get('UserName')),
                     'MDMZdbh': param.MDMZdbh
                 })
             },

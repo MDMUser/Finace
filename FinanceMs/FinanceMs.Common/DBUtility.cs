@@ -14,27 +14,6 @@ namespace FinanceMs.Common
 {
     public static class DBUtility
     {
-        public static DataSet GetModelSchema(string mdmModelId)
-        {
-            DataSet ds = null;
-            if (!string.IsNullOrWhiteSpace(mdmModelId))
-            {
-                GSPDataAccessEngine daEngine = GSPDataAccessEngine.GetDataAccessEngine();
-                ds = daEngine.GetObjectDataSet(mdmModelId, "", DataQueryType.QueryForCart);
-            }
-            return ds;
-        }
-
-        /// <summary>
-        /// 根据字典编号获取该字典的分级码长度
-        /// </summary>
-        /// <param name="dictCode"></param>
-        /// <returns></returns>
-        public static int GetFJMLength(string dictCode)
-        {
-            return 4;
-        }
-
         /// <summary>
         /// 通过导入的一条数据的code、layer、parentCode 获取该条数据生成的FJM、正确级数、父级内码
         /// </summary>
@@ -53,6 +32,10 @@ namespace FinanceMs.Common
             switch (dictName)
             {
                 case "MDMXZQH":
+                case "MDMIndustry":
+                case "MDMCSZD":
+                case "MDMAgency":
+                case "MDMZGBM":
                     nmField = "NM";
                     codeField = "code";
                     layerField = "layer";
@@ -110,5 +93,65 @@ namespace FinanceMs.Common
             string userName = GSPContext.Current.Session.UserName;
             return userName;
         }
+
+        /// <summary>
+        /// 获取操作员Code
+        /// </summary>
+        /// <returns></returns>
+        public static string GetOperateUserCode()
+        {
+            //操作员
+            string userName = GSPContext.Current.Session.UserCode;
+            return userName;
+        }
+        /// <summary>
+        /// 修改父级信息-调整级次
+        /// </summary>
+        /// <param name="db">数据库操作类</param>
+        /// <param name="dictName">字典名称</param>
+        /// <param name="curentNM">当前需要调整的内码</param>
+        /// <param name="newParentNM">待调整到的新的父级内码</param>
+        /// <returns></returns>
+        public static int ChangeParentInfoByDict(DataBaseEx db, string dictName, string curentNM, string newParentNM)
+        {
+            int result = (int)EnumAdjustState.infoFail;
+            // 内码字典名称、编号字段名称、级数字段名称
+            string nmField = "", codeField = "", layerField = "", parentNMField = "", parentCodeField = "";
+            // 后期改为从系统字典表中获取
+            switch (dictName)
+            {
+                case "MDMXZQH":
+                case "MDMIndustry":
+                case "MDMCSZD":
+                case "MDMAgency":
+                case "MDMZGBM":
+                    nmField = "NM";
+                    codeField = "code";
+                    layerField = "layer";
+                    parentNMField = "ParentNM";
+                    parentCodeField = "ParentCode";
+                    break;
+                case "":
+                    break;
+            }
+            if (!string.IsNullOrWhiteSpace(curentNM))
+            {
+                db.ResultNum = 1;
+                IDbDataParameter[] param = new IDbDataParameter[9];
+                db.MakeInParam("@DictName", dictName, out param[0]);
+                db.MakeInParam("@NMName", nmField, out param[1]);
+                db.MakeInParam("@CodeName", codeField, out param[2]);
+                db.MakeInParam("@LayerName", layerField, out param[3]);
+                db.MakeInParam("@ParentNMName", parentNMField, out param[4]);
+                db.MakeInParam("@ParentCodeName", parentCodeField, out param[5]);
+                db.MakeInParam("@CurrentNM", curentNM, out param[6]);
+                db.MakeInParam("@NewParentNM", newParentNM, out param[7]);
+                db.MakeOutParam("@OUTPRODUCTCODE", GSPDbDataType.VarChar, 1000, out param[8]);
+                db.RunProc("MDM_FinanceDict_AdjustState", param);
+                int.TryParse(param[8].Value.ToString(), out result);
+            }
+            return result;
+        }
+
     }
 }

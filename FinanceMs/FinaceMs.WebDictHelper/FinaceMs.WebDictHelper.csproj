@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3AFA4332-31CE-48E5-AF85-28F6A4A8EE72}</ProjectGuid>
+    <ProjectGuid>{D73FC131-37E3-408D-AD3F-7517D982AC3D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FinanceMs.Import</RootNamespace>
-    <AssemblyName>FinanceMs.Import</AssemblyName>
+    <RootNamespace>FinaceMs.WebDictHelper</RootNamespace>
+    <AssemblyName>FinaceMs.WebDictHelper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>Firefly Project</SccProjectName>
-    <SccLocalPath>.</SccLocalPath>
+    <SccLocalPath>..</SccLocalPath>
     <SccAuxPath />
     <SccProvider>MSSCCI:Hansky Firefly</SccProvider>
   </PropertyGroup>
@@ -39,8 +38,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.Pub.Server.dll</HintPath>
     </Reference>
-    <Reference Include="Genersoft.MDM.WEB.Server">
-      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\MDM\Genersoft.MDM.WEB.Server.dll</HintPath>
+    <Reference Include="genersoft.platform.bizcomponent.basiclib">
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.bizcomponent.basiclib.dll</HintPath>
+    </Reference>
+    <Reference Include="genersoft.platform.resource.component">
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\GSP\genersoft.platform.resource.component.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json70">
+      <HintPath>..\..\..\..\..\..\..\DRP_Refer.Dll\Newtonsoft.Json70.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,14 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSZDOperate.cs" />
-    <Compile Include="ImportManage.cs" />
-    <Compile Include="MDMAgencyOperate.cs" />
-    <Compile Include="MDMIndustryOperate.cs" />
-    <Compile Include="OutManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XZQHOperate.cs" />
-    <Compile Include="ZGBMOperate.cs" />
+    <Compile Include="WebAdjustLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinanceMs.Common\FinanceMs.Common.csproj">
@@ -67,6 +66,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="script\commonFinace.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

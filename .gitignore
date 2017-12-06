@@ -32,9 +32,12 @@ obj/
 bin/
 WinFormDom/
 .nuget/
+MDM_PUB_Debug/
+MDM_PUB_Common/Singleton.cs
 packages/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
 *.dll
 *.xml
+.gitignore
