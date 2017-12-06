@@ -1,10 +1,10 @@
-﻿var common = {
+﻿var commonFince = {
     /**
     * 生成查询的参数对象
     * @param obj 查询属性对象
     * @returns {*}
     */
-    setParameterObj: function (obj) {
+    setParaObj: function (obj) {
         var objPara = new Object();
         objPara.Lbracket = "";
         objPara.Compare = obj.Compare;
@@ -13,7 +13,7 @@
         objPara.Value = obj.Value;
         objPara.DisplayValue = obj.DisplayValue;
         objPara.Rbracket = "";
-        objPara.Relation = "and";
+        objPara.Relation = "and ";
         objPara.IsCanChange = true;
         objPara.ConvertUpperToCompare = false;
         objPara.Expresstype = 0;
@@ -22,4 +22,4 @@
         objPara.Description = "";
         return objPara;
     }
-}
+};
