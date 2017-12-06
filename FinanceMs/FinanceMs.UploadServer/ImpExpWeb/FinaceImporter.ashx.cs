@@ -20,14 +20,14 @@ namespace FinanceMs.UploadServer.ImpExpWeb
         {
             #region 构造GSPState
             string AppInstanceID = context.Request.Form["AppInstanceID"],
-            userCode = context.Request.Form["UserCode"],
+            userCode = HttpUtility.UrlDecode(context.Request.Form["UserCode"]),
             userID = context.Request.Form["UserId"],
             ProcessID = context.Request.Form["ProcessID"],
             bizDate = context.Request.Form["BizDate"],//业务日期
             LoginDate = context.Request.Form["LoginDate"],//登录日期
             ClientIP = context.Request.Form["ClientIP"].Replace('-', '.'),//客户端IP
             FrameType = context.Request.Form["FrameType"],//框架类型
-            UserName = context.Request.Form["UserName"];//用户名称
+            UserName = HttpUtility.UrlDecode(context.Request.Form["UserName"]);//用户名称
             if (string.IsNullOrEmpty(userID))
             {
                 string s1 = System.Web.HttpUtility.UrlEncode("错误信息", System.Text.Encoding.UTF8);

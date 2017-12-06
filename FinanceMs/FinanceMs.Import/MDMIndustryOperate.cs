@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Genersoft.MDM.Pub.Server.Com;
 using System.Data;
 using FinanceMs.Common;
 using FinanceMs.Common.Models;
-using Genersoft.MDM.Pub.Server.Com;
 
 namespace FinanceMs.Import
 {
-    public class XZQHOperate
+    public class MDMIndustryOperate
     {
         private readonly DataBaseEx db = new DataBaseEx();
 
         #region 导入
         /// <summary>
-        /// 行政区划导入
+        /// 行业导入
         /// </summary>
         /// <param name="data">导入数据源</param>
         /// <param name="schema">该字典的数据模型</param>
         /// <returns></returns>
+
         public string ImportData(DataSet data)
         {
             // 应返回的信息
@@ -30,28 +31,28 @@ namespace FinanceMs.Import
             {
                 DataTable dtData = data.Tables[tableCount];
                 // ①判断excel表格的合理性
-                string[] list = { "区划代码", "区划名称", "级数", "是否明细" };
+                string[] list = { "行业编码", "行业名称", "级数", "是否明细" };
                 msg = Verification.ImportColumns(data.Tables[0].Columns, list);
                 if (!string.IsNullOrWhiteSpace(msg))
                     return msg;
 
                 // ②将dataTable转为list
-                var xzqhList = ConvertsData.DataTableToListByProperties<MDMXZQH>(dtData);
+                var hyList = ConvertsData.DataTableToListByProperties<MDMIndustry>(dtData);
 
                 // ③筛选出添加、修改、无效数据
                 // 声明(添加、修改)和 无效list
-                IList<MDMXZQH> editList = new List<MDMXZQH>(),
-                            invalidList = new List<MDMXZQH>();
+                IList<MDMIndustry> editList = new List<MDMIndustry>(),
+                            invalidList = new List<MDMIndustry>();
 
-                if (xzqhList != null && xzqhList.Count > 0)
+                if (hyList != null && hyList.Count > 0)
                 {
-                    invalidList = xzqhList.Where(g => ConvertsData.ValidNullString(g.Code, "") == ""
+                    invalidList = hyList.Where(g => ConvertsData.ValidNullString(g.Code, "") == ""
                                                    || ConvertsData.ValidNullString(g.Name, "") == ""
                                                    || g.Layer <= 0
                                                    || !Verification.CharRangeOut(g.IsDetail, typeof(EnumIsDetail))
                                                 ).ToArray();
 
-                    editList = xzqhList.Where(g => ConvertsData.ValidNullString(g.Code, "") != ""
+                    editList = hyList.Where(g => ConvertsData.ValidNullString(g.Code, "") != ""
                                                    && ConvertsData.ValidNullString(g.Name, "") != ""
                                                    && g.Layer > 0
                                                    && Verification.CharRangeOut(g.IsDetail, typeof(EnumIsDetail))
@@ -72,14 +73,13 @@ namespace FinanceMs.Import
                 }
                 catch (Exception ex)
                 {
-                    //MDMPubFunction.WriteTextFile("同步组织错误 ProcessingOrgInfo:" + ex.Message + "，ex:" + JsonConvert.SerializeObject(ex));
                     return ex.Message;
                 }
 
                 // ⑤返回处理结果
                 if (!string.IsNullOrWhiteSpace(editResult) || !string.IsNullOrWhiteSpace(invalidResult))
                 {
-                    msg += "有部分数据导入存在问题如下： <br/> "
+                    msg += "有部分数据导入存在问题如下： <br/>	"
                         + editResult + "<br/>"
                         + invalidResult;
                 }
@@ -89,40 +89,31 @@ namespace FinanceMs.Import
 
         #region 导入数据
         /// <summary>
-        /// 处理行政区划数据
+        /// 处理行业数据
         /// </summary>
         /// <param name="cList"></param>
         /// <returns></returns>
-        private string EditListOperate(IList<MDMXZQH> cList)
+        private string EditListOperate(IList<MDMIndustry> cList)
         {
             string result = "";
             for (int i = 0; i < cList.Count; i++)
             {
-                MDMXZQH addInfo = cList[i];
-                var resModel = DBUtility.GetNewFJMByDict(db, "MDMXZQH", addInfo.Code, addInfo.Layer, addInfo.ParentCode);
+                MDMIndustry addInfo = cList[i];
+                var resModel = DBUtility.GetNewFJMByDict(db, "MDMIndustry", addInfo.Code, addInfo.Layer, addInfo.ParentCode);
                 if (resModel != null && (!string.IsNullOrWhiteSpace(resModel.NewFJM) || !string.IsNullOrWhiteSpace(resModel.NM)))
                 {
                     if (!string.IsNullOrWhiteSpace(resModel.NM))
                     {
                         // 修改该条数据基本信息
                         StringBuilder sqledit = new StringBuilder();
-                        sqledit.AppendFormat("UPDATE MDMXZQH SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);
-                        // 财政管理级次码表对接
-                        if (!string.IsNullOrWhiteSpace(addInfo.LevelName))
+
+                        sqledit.AppendFormat("UPDATE MDMIndustry SET Name='{0}', IsDetail='{1}', ", addInfo.Name, addInfo.IsDetail);
+                        sqledit.AppendFormat(" Note='{0}', ", addInfo.Note);
+                        if (Enum.IsDefined(typeof(EnumIndustryType), ConvertsData.ValidNullString(addInfo.Type, "")))
                         {
-                            sqledit.AppendFormat(" LevelCode={0}, LevelName='{1}', ", ConvertsData.GetCodeByName("FinAdmLevelCode", addInfo.LevelName.Trim()), addInfo.LevelName.Trim());
+                            sqledit.AppendFormat(" Type= '{0}',", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
                         }
-                        // 财政管理级次标识码表对接
-                        if (!string.IsNullOrWhiteSpace(addInfo.MarkName))
-                        {
-                            sqledit.AppendFormat(" MarkCode={0}, MarkName='{1}', ", ConvertsData.GetCodeByName("FinAdmLevelMarkCode", addInfo.MarkName.Trim()), addInfo.MarkName.Trim());
-                        }
-                        // 东中西部码表对接
-                        if (!string.IsNullOrWhiteSpace(addInfo.DZXBName))
-                        {
-                            sqledit.AppendFormat(" DZXBCode={0} , DZXBName='{1}', ", ConvertsData.GetCodeByName("EMWCode", addInfo.DZXBName.Trim()), addInfo.DZXBName.Trim());
-                        }
-                        sqledit.AppendFormat(" PinYin='{0}',JianPin='{1}', Note='{2}', ", addInfo.PinYin, addInfo.JianPin, addInfo.Note);
+
                         sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         sqledit.AppendFormat(" Where NM = '{0}' ", resModel.NM);
                         db.ExecuteSQL(sqledit.ToString());
@@ -144,13 +135,17 @@ namespace FinanceMs.Import
                         }
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
-                        addSql.AppendLine(" INSERT INTO MDMXZQH ( NM, Code, Name, LevelCode, LevelName,MarkCode, MarkName,ParentNM,ParentCode, PinYin, JianPin, ");
-                        addSql.AppendLine("  DZXBCode,DZXBName,Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
+                        addSql.AppendLine(" INSERT INTO MDMIndustry ( NM, Code, Name, Type, ParentNM,ParentCode, ");
+                        addSql.AppendLine("  Note,FJM, Layer, IsDetail, AuditState, TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
                         addSql.AppendFormat("'{0}','{1}','{2}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
-                        // 财政管理级次
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FinAdmLevelCode", addInfo.LevelName), addInfo.LevelName);
-                        // 财政管理级次标识
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FinAdmLevelMarkCode", addInfo.MarkName), addInfo.MarkName);
+                        if (Enum.IsDefined(typeof(EnumIndustryType), ConvertsData.ValidNullString(addInfo.Type, "")))
+                        {
+                            addSql.AppendFormat(" '{0}', ", (int)Enum.Parse(typeof(EnumIndustryType), addInfo.Type));
+                        }
+                        else
+                        {
+                            addSql.Append("  '', ");
+                        }
                         // 父级信息
                         if (resModel.NewLayer != 1)
                         {
@@ -160,9 +155,6 @@ namespace FinanceMs.Import
                         {
                             addSql.AppendFormat(" '', '', ");
                         }
-                        addSql.AppendFormat(" '{0}','{1}', ", addInfo.PinYin, addInfo.JianPin);
-                        // 东中西部
-                        addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("EMWCode", addInfo.DZXBName), addInfo.DZXBName);
 
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
                         addSql.AppendFormat("'{0}','{1}',  ", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
@@ -178,12 +170,12 @@ namespace FinanceMs.Import
         #endregion
 
         #region 无效数据处理
-        private string InvalidOperate(IList<MDMXZQH> cList)
+        private string InvalidOperate(IList<MDMIndustry> cList)
         {
             string info = "";
             for (int i = 0; i < cList.Count; i++)
             {
-                info += "编号 " + cList[i].Code + "，名称 " + cList[i].Name + "： 信息编号、名称、级数、是否明细不全无法导入；<br/>" ;
+                info += "编号 " + cList[i].Code + "，名称 " + cList[i].Name + "： 信息编号、名称、级数、是否明细不全无法导入；<br/>";
             }
             return info;
         }
@@ -192,22 +184,22 @@ namespace FinanceMs.Import
 
         #region 导出
         /// <summary>
-        /// 行政区划导出
+        /// 行业导出
         /// </summary>
-        /// <param name="where"></param>
+        /// <param name="where"></param>，
         /// <param name="message"></param>
         /// <returns></returns>
         public DataSet ExportData(string where)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(" SELECT a.Code 区划代码, a.Name 区划名称, a.LevelName 财政管理级次, a.MarkName 财政管理级次标识, b.Name 上级区划, a.PinYin 字母拼音,");
-            sb.AppendLine(" a.JianPin 拼音缩写, a.DZXBName 东中西部, a.Note 备注, a.Layer 级数, a.IsDetail 是否明细 ");
-            sb.AppendLine(" FROM MDMXZQH a LEFT JOIN MDMXZQH b ON a.ParentNM=b.NM  WHERE a.TYBZ='0' and a.AuditState='2' ");
+            sb.AppendLine(" SELECT a.Code 行业编码,a.Name 行业名称,case  a.Type when '0' then '门' when '1' then '大' when '2' then '中' END 行业类别, b.Name 上级行业名称, ");
+            sb.AppendLine(" a.Note 备注,a.Layer 级数, a.IsDetail 是否明细 ");
+            sb.AppendLine(" FROM MDMIndustry a left join MDMIndustry b on a.parentNM = b.NM  WHERE a.TYBZ='0' and a.AuditState='2' ");
             sb.AppendLine(where);
+            sb.AppendLine(" order by a.layer ");
             DataSet ds = db.ExecuteSQL(sb.ToString());
             return ds;
         }
         #endregion
-
     }
 }

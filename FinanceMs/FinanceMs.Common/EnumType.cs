@@ -81,4 +81,54 @@ namespace FinanceMs.Common
         disable = 1,
     }
 
+    /// <summary>
+    /// 行业类别
+    /// </summary>
+    public enum EnumIndustryType
+    {
+        /// <summary>
+        /// 门
+        /// </summary>
+        门 = 0,
+        /// <summary>
+        /// 大
+        /// </summary>
+        大 = 1,
+        /// <summary>
+        /// 中
+        /// </summary>
+        中 = 2,
+        /// <summary>
+        /// 小
+        /// </summary>
+        小 = 3
+    }
+
+    /// <summary>
+    /// 调整级次返回结果
+    /// </summary>
+    public enum EnumAdjustState
+    {
+        /// <summary>
+        /// 调用失败
+        /// </summary>
+        failure = -1,
+        /// <summary>
+        /// 成功
+        /// </summary>
+        ok = 0,
+        /// <summary>
+        /// 逻辑业务错误
+        /// </summary>
+        busIssue = 1,
+        /// <summary>
+        /// 信息无效
+        /// </summary>
+        infoFail = 2,
+        /// <summary>
+        /// 信息未改变
+        /// </summary>
+        unchanged = 3
+    }
+
 }
