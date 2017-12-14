@@ -7,6 +7,9 @@ using System.ComponentModel;
 
 namespace FinanceMs.Common.Models
 {
+    /// <summary>
+    /// 主管部门
+    /// </summary>
     public class MDMZGBM
     {
         /// <summary>
