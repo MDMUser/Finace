@@ -76,5 +76,50 @@
             .always(function () {
                 $.loaded();
             });
+    },
+
+    /**
+    * 树形控件
+    * @param obj 树表对象
+    * @param obj 页面本身
+    * @param obj 新的父级对象
+    */
+    DictSearch: function ($treeList, self, dictName, nmField) {
+        debugger;
+        var filters = $treeList.treegrid('options').filterRules;
+        var model = self.defaultModel(),
+            maxCount = 1000,
+            listView;
+        if (filters != null && filters.length > 0) {
+            var paraDialog = new Array();
+            paraDialog[0] = dictName;
+            paraDialog[1] = JSON.stringify(filters);
+            var dataService = self.context.injector.get("$dataServiceProxy");
+            // 获取符合条件的内码
+            return dataService.invokeMethod("FinaceMs.WebDictHelper.WebSearch", "SearchDataByFilter", paraDialog).then(function (result) {
+                var data = result.data;
+                if (data != null && data != '') {
+                    // 从后台获取全部数据并载入到树表格中
+                    var obj = new Object();
+                    obj.Compare = " in ";
+                    obj.Field = nmField;
+                    obj.DataType = "string";
+                    obj.Value = "(" + data + ")";
+                    obj.DisplayValue = data;
+                    var objNM = commonFince.setParaObj(obj);
+                    return commonFince.getListDataSourceWithOtherFilterConditionEx('', 0, maxCount, objNM, self).then(function (ds) {
+                        if (ds && ds.tables(0) && ds.tables(0).rowCount() > 0) {
+                            listView = ds.tables(0).defaultView();
+                            if (listView.totalRecordsCount() > maxCount) {
+                                $.notify.info("数据量过大，请详细查询");
+                            }
+                            else {
+                                self.treeGridHelper.expandAll($treeList, model, ds.tables(0).peek());
+                            }
+                        }
+                    });
+                }
+            });
+        }
     }
 };
