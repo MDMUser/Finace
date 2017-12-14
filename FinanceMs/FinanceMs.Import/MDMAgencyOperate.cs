@@ -110,7 +110,7 @@ namespace FinanceMs.Import
                     {
                         // 修改该条数据基本信息
                         StringBuilder sqledit = new StringBuilder();
-                        sqledit.AppendFormat("UPDATE MDMAgency SET Name='{0}', IsDetail='{1}',OrgCode='{2}', ", addInfo.Name, addInfo.IsDetail, addInfo.OrgCode);
+                        sqledit.AppendFormat("UPDATE MDMAgency SET Name='{0}', IsDetail='{1}',OrgCode='{2}',CreditCode = '{3}', ", addInfo.Name, addInfo.IsDetail, addInfo.OrgCode, addInfo.CreditCode);
                         // 单位类型码表对接
                         if (!string.IsNullOrWhiteSpace(addInfo.TypeName))
                         {
@@ -179,12 +179,12 @@ namespace FinanceMs.Import
                         }
                         // 添加该条数据
                         StringBuilder addSql = new StringBuilder();
-                        addSql.AppendLine(" INSERT INTO MDMAgency ( NM, Code, Name, OrgCode,TypeCode,TypeName,LevelCode, LevelName,");
+                        addSql.AppendLine(" INSERT INTO MDMAgency ( NM, Code, Name, OrgCode,CreditCode,TypeCode,TypeName,LevelCode, LevelName,");
                         addSql.AppendLine("  IndNM,IndName,PerKindCode, PerKindName, MOFDepCode, MOFDepName, ");
                         addSql.AppendLine(" SupDepNM, SupDepName, AdmLevelCode,AdmLevelName, XZTypeCode,XZTypeName, ");
                         addSql.AppendLine(" ParentNM,ParentCode,FundSupCode,FundsupName,Fax,Tel,Address, ");
                         addSql.AppendLine("  Note,FJM, Layer, IsDetail, TYBZ, AuditState, Createuser, Createtime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
-                        addSql.AppendFormat("'{0}','{1}','{2}','{3}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode);
+                        addSql.AppendFormat("'{0}','{1}','{2}','{3}','{4}', ", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name, addInfo.OrgCode, addInfo.CreditCode);
                         // 单位类型
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("AgencyType", addInfo.TypeName), addInfo.TypeName);
                         // 单位级次
@@ -268,7 +268,7 @@ namespace FinanceMs.Import
         public DataSet ExportData(string where)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(" SELECT  a.Code 单位层次代码, a.Name 单位名称, a.Layer 级数, a.OrgCode 组织机构代码,a.TypeName 单位类型, a.LevelName 单位级次, ");
+            sb.AppendLine(" SELECT  a.Code 单位层次代码, a.Name 单位名称, a.Layer 级数, a.CreditCode 统一社会信用代码, a.OrgCode 组织机构代码,CreditCodea.TypeName 单位类型, a.LevelName 单位级次, ");
             sb.AppendLine(" a.IndName 行业名称, a.PerKindName 人员情况, a.MOFDepName 财政部内部机构, a.SupDepName 部门名称, a.AdmLevelName  单位行政级别名称, ");
             sb.AppendLine(" a.XZTypeName  性质分类, b.Name 上级单位名称, a.FundsupName 经费供给方式, a.Fax 传真, a.Tel 电话, a.Address 地址, ");
             sb.AppendLine(" a.Note 备注, a.IsDetail 是否明细 ");
