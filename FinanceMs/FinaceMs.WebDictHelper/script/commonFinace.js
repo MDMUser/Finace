@@ -22,6 +22,7 @@
         objPara.Description = "";
         return objPara;
     },
+
     /**
     * 针对级次调整功能局部刷新树形数据
     * @param obj 树表对象
@@ -86,6 +87,12 @@
             });
     },
 
+    /**
+    * 树形控件查询功能
+    * @param obj 树表对象
+    * @param obj 页面本身
+    * @param obj 新的父级对象
+    */
     TreeDictSearch: function ($treeList, self, dictName, nmField) {
         var filters = $treeList.treegrid('options').filterRules;
         var model = self.defaultModel(),
