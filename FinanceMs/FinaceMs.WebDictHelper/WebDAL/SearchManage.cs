@@ -26,19 +26,24 @@ namespace FinaceMs.WebDictHelper.WebDAL
             switch (dictName)
             {
                 case "MDMXZQH":
-                    result = GetAgencyData(listFilter);
+                    MDMXZQH xzqh = new MDMXZQH();
+                    result = GetDictData<MDMXZQH>(dictName, listFilter, xzqh);
                     break;
                 case "MDMIndustry":
-                    result = GetAgencyData(listFilter);
+                    MDMIndustry industry = new MDMIndustry();
+                    result = GetDictData<MDMIndustry>(dictName, listFilter, industry);
                     break;
                 case "MDMAgency":
-                    result = GetAgencyData(listFilter);
+                    MDMAgency agency = new MDMAgency();
+                    result = GetDictData<MDMAgency>(dictName, listFilter, agency);
                     break;
                 case "MDMCSZD":
-                    result = GetAgencyData(listFilter);
+                    MDMCSZD cs = new MDMCSZD();
+                    result = GetDictData<MDMCSZD>(dictName, listFilter, cs);
                     break;
                 case "MDMZGBM":
-                    result = GetAgencyData(listFilter);
+                    MDMZGBM zgbm = new MDMZGBM();
+                    result = GetDictData<MDMZGBM>(dictName, listFilter, zgbm);
                     break;
             }
             if (result != null && result.Count > 0)
@@ -62,13 +67,14 @@ namespace FinaceMs.WebDictHelper.WebDAL
         /// <summary>
         /// 获取数据
         /// </summary>
+        /// <typeparam name="T">model</typeparam>
+        /// <param name="dictName">字典名称</param>
         /// <param name="listFilter">条件列表</param>
         /// <returns></returns>
-        public IList<Identify> GetAgencyData(List<WebFilter> listFilter)
+        private IList<Identify> GetDictData<T>(string dictName, List<WebFilter> listFilter, T model)
         {
             IList<Identify> NMList = null;
             List<string> whereList = new List<string>();
-            MDMAgency model = new MDMAgency();
             for (int i = 0; i < listFilter.Count; i++)
             {
                 var filter = listFilter[i];
@@ -78,20 +84,30 @@ namespace FinaceMs.WebDictHelper.WebDAL
                     string where = filter.field + " like " + "'%" + filter.value + "%'";
                     whereList.Add(where);
                 }
-
             }
-            string fliterWhere = string.Join(" AND ", whereList.ToArray());
+            string filterWhere = string.Join(" AND ", whereList.ToArray());
+            DataSet ds = db.ExecuteSQL(GetSQLByFilters(dictName, filterWhere));
+            NMList = ConvertsData.DataTableToList<Identify>(ds.Tables[0]);
+            return NMList;
+        }
+
+        /// <summary>
+        /// 获取某字典的查询sql
+        /// </summary>
+        /// <param name="dictName">字典名</param>
+        /// <param name="filters">条件</param>
+        /// <returns></returns>
+        private string GetSQLByFilters(string dictName, string filters)
+        {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(" WITH Emp(NM,ParentNM) AS ");
             sb.AppendLine("  (select NM, ParentNM from mdmagency WHERE ");
-            sb.AppendLine(fliterWhere);
+            sb.AppendLine(filters);
             sb.AppendLine(" UNION ALL ");
             sb.AppendLine(" SELECT d.NM, d.ParentNM ");
-            sb.AppendLine(" FROM Emp INNER JOIN mdmagency d  ON d.NM = Emp.ParentNM) ");
+            sb.AppendFormat(" FROM Emp INNER JOIN {0} d  ON d.NM = Emp.ParentNM) ", dictName);
             sb.AppendLine(" SELECT distinct NM FROM Emp ");
-            DataSet ds = db.ExecuteSQL(sb.ToString());
-            NMList = ConvertsData.DataTableToList<Identify>(ds.Tables[0]);
-            return NMList;
+            return sb.ToString();
         }
     }
 }

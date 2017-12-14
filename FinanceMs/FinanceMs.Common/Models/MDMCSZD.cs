@@ -7,6 +7,9 @@ using System.ComponentModel;
 
 namespace FinanceMs.Common.Models
 {
+    /// <summary>
+    /// 处室
+    /// </summary>
     public class MDMCSZD
     {
         /// <summary>
