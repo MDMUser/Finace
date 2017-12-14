@@ -39,7 +39,15 @@
         self.treeGridHelper.removeNode($treeList, model, node);
         // 新父节点为空的时候
         if (newParentObj == null) {
-            self.Method_Load();
+            return self.getListDataSourceWithOtherFilterCondition('', 1)
+                  .then(function (ds) {
+                      if (ds && ds.tables(0)) {
+                          //treegrid加载数据
+                          self.treeGridHelper.loadData($treeList, model, ds.tables(0).peek());
+                          //选中第一个节点
+                          self.selectFirstNode();
+                      }
+                  })
         }
         else {
             // 局部刷新 new parent  
@@ -78,14 +86,7 @@
             });
     },
 
-    /**
-    * 树形控件
-    * @param obj 树表对象
-    * @param obj 页面本身
-    * @param obj 新的父级对象
-    */
-    DictSearch: function ($treeList, self, dictName, nmField) {
-        debugger;
+    TreeDictSearch: function ($treeList, self, dictName, nmField) {
         var filters = $treeList.treegrid('options').filterRules;
         var model = self.defaultModel(),
             maxCount = 1000,
@@ -121,5 +122,17 @@
                 }
             });
         }
+        else {
+            return self.getListDataSourceWithOtherFilterCondition('', 1)
+                    .then(function (ds) {
+                        if (ds && ds.tables(0)) {
+                            //treegrid加载数据
+                            self.treeGridHelper.loadData($treeList, model, ds.tables(0).peek());
+                            //选中第一个节点
+                            self.selectFirstNode();
+                        }
+                    })
+        }
+
     }
 };
