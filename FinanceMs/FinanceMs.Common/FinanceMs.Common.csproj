@@ -73,6 +73,7 @@
     <Compile Include="DBUtility.cs" />
     <Compile Include="EnumType.cs" />
     <Compile Include="FinaceLog.cs" />
+    <Compile Include="Models\Extend\WebFilter.cs" />
     <Compile Include="Models\MDMAgency.cs" />
     <Compile Include="Models\MDMIndustry.cs" />
     <Compile Include="Models\MDMCSZD.cs" />
