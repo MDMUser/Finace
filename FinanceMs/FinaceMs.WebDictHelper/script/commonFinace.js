@@ -13,7 +13,7 @@
         objPara.Value = obj.Value;
         objPara.DisplayValue = obj.DisplayValue;
         objPara.Rbracket = "";
-        objPara.Relation = "and ";
+        objPara.Relation = " and ";
         objPara.IsCanChange = true;
         objPara.ConvertUpperToCompare = false;
         objPara.Expresstype = 0;
