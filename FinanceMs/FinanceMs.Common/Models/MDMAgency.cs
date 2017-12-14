@@ -30,6 +30,11 @@ namespace FinanceMs.Common.Models
         /// </summary>
         [Description("组织机构代码")]
         public string OrgCode { get; set; }
+        /// <summary>
+        /// 统一社会信用代码
+        /// </summary>
+        [Description("统一社会信用代码")]
+        public string CreditCode { get; set; }
 
         /// <summary>
         /// 单位类型代码
