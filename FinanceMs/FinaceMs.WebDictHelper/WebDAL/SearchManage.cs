@@ -101,7 +101,7 @@ namespace FinaceMs.WebDictHelper.WebDAL
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(" WITH Emp(NM,ParentNM) AS ");
-            sb.AppendLine("  (select NM, ParentNM from mdmagency WHERE ");
+            sb.AppendFormat("  (select NM, ParentNM from {0} WHERE ", dictName);
             sb.AppendLine(filters);
             sb.AppendLine(" UNION ALL ");
             sb.AppendLine(" SELECT d.NM, d.ParentNM ");
