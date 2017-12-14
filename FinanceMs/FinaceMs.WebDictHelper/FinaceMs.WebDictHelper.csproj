@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebAdjustLevel.cs" />
+    <Compile Include="WebDAL\SearchManage.cs" />
+    <Compile Include="WebSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinanceMs.Common\FinanceMs.Common.csproj">

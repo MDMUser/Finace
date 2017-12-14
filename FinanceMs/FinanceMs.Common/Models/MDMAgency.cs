@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace FinanceMs.Common.Models
 {
-   public  class MDMAgency
+    public class MDMAgency
     {
         /// <summary>
         /// GUID
@@ -216,5 +216,13 @@ namespace FinanceMs.Common.Models
         /// 最后修改时间
         /// </summary>
         public DateTime LastModifiedTime { get; set; }
+    }
+
+    public class Identify
+    {
+        /// <summary>
+        /// GUID
+        /// </summary>
+        public string NM { get; set; }
     }
 }
