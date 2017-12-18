@@ -113,6 +113,7 @@
                     obj.DataType = "string";
                     obj.Value = "(" + data + ")";
                     obj.DisplayValue = data;
+                    obj.Relation = " and ";
                     var objNM = commonFince.setParaObj(obj);
                     return commonFince.getListDataSourceWithOtherFilterConditionEx('', 0, maxCount, objNM, self).then(function (ds) {
                         if (ds && ds.tables(0) && ds.tables(0).rowCount() > 0) {
