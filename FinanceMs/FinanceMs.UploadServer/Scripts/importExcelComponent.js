@@ -1290,9 +1290,9 @@ jQuery.FinaceExcelImport = function (param, callBack) {
             queueSizeLimit: 1,
             overrideEvents: ['onSelectError', "onCancel", "onUploadError", "onError", 'onDialogClose'],
             onUploadSuccess: function (file, data, response) {
+                $.loaded();
                 var result = JSON.parse(data);
                 if (result.result == "0") {
-                    $.loaded();
                     $.notify.success("上传成功！");
                     callBack();
                 } else {
