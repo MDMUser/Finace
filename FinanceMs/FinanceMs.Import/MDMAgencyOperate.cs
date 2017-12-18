@@ -268,7 +268,7 @@ namespace FinanceMs.Import
         public DataSet ExportData(string where)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(" SELECT  a.Code 单位层次代码, a.Name 单位名称, a.Layer 级数, a.CreditCode 统一社会信用代码, a.OrgCode 组织机构代码,CreditCodea.TypeName 单位类型, a.LevelName 单位级次, ");
+            sb.AppendLine(" SELECT  a.Code 单位层次代码, a.Name 单位名称, a.Layer 级数, a.CreditCode 统一社会信用代码, a.OrgCode 组织机构代码, a.TypeName 单位类型, a.LevelName 单位级次, ");
             sb.AppendLine(" a.IndName 行业名称, a.PerKindName 人员情况, a.MOFDepName 财政部内部机构, a.SupDepName 部门名称, a.AdmLevelName  单位行政级别名称, ");
             sb.AppendLine(" a.XZTypeName  性质分类, b.Name 上级单位名称, a.FundsupName 经费供给方式, a.Fax 传真, a.Tel 电话, a.Address 地址, ");
             sb.AppendLine(" a.Note 备注, a.IsDetail 是否明细 ");
