@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSZDOperate.cs" />
+    <Compile Include="EnterpriseOperate.cs" />
     <Compile Include="ImportManage.cs" />
     <Compile Include="MDMAgencyOperate.cs" />
     <Compile Include="MDMIndustryOperate.cs" />
