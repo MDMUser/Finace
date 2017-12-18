@@ -13,7 +13,7 @@
         objPara.Value = obj.Value;
         objPara.DisplayValue = obj.DisplayValue;
         objPara.Rbracket = "";
-        objPara.Relation = " and ";
+        objPara.Relation = obj.Relation;
         objPara.IsCanChange = true;
         objPara.ConvertUpperToCompare = false;
         objPara.Expresstype = 0;
@@ -22,7 +22,6 @@
         objPara.Description = "";
         return objPara;
     },
-
     /**
     * 针对级次调整功能局部刷新树形数据
     * @param obj 树表对象
