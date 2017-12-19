@@ -35,6 +35,9 @@ namespace FinanceMs.Import
                 case "MDMZGBM":
                     psMsg = new ZGBMOperate().ImportData(dsData);
                     break;
+                case "MDMEnterprise":
+                    psMsg = new EnterpriseOperate().ImportData(dsData);
+                    break;
             }
         }
     }

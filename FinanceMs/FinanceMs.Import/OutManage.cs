@@ -37,6 +37,9 @@ namespace FinanceMs.Import
                 case "MDMZGBM":
                     result = new ZGBMOperate().ExportData(psWhere);
                     break;
+                case "MDMEnterprise":
+                    result = new EnterpriseOperate().ExportData(psWhere);
+                    break;
                 default:
                     psMsg += "尚未配置字典【" + psZdbh + "】的导出程序，请联系系统管理员！";
                     break;

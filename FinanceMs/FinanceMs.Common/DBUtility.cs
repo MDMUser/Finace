@@ -152,6 +152,16 @@ namespace FinanceMs.Common
             }
             return result;
         }
-
+        public static int CheackIsUpdate() 
+        {
+            bool  
+                if(CheackIsUpdate)
+                {
+                    StringBuilder sqledit = new StringBuilder();
+                }else
+                {
+                    StringBuilder addSql = new StringBuilder();
+                }
+        }
     }
 }

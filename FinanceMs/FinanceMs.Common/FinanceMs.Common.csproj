@@ -74,6 +74,7 @@
     <Compile Include="EnumType.cs" />
     <Compile Include="FinaceLog.cs" />
     <Compile Include="Models\MDMAgency.cs" />
+    <Compile Include="Models\MDMEnterprise.cs" />
     <Compile Include="Models\MDMIndustry.cs" />
     <Compile Include="Models\MDMCSZD.cs" />
     <Compile Include="Models\MDMZGBM.cs" />

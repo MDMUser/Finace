@@ -124,10 +124,10 @@ namespace FinanceMs.Import
                     addSql.AppendFormat("'{0}','{1}','{2}',", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
                     addSql.AppendFormat("'{0}',", addInfo.ShortName);
 
-                    if (!string.IsNullOrWhiteSpace(addInfo.IndName))
+                    if (!string.IsNullOrWhiteSpace(addInfo.IndustryNMName))
                     {
                         // 行业关联
-                        addSql.AppendFormat(" (select NM from MDMIndustry where Name = '{0}') ,'{0}', ", addInfo.IndName.Trim());
+                        addSql.AppendFormat(" (select NM from MDMIndustry where Name = '{0}') ,'{0}', ", addInfo.IndustryNMName.Trim());
                     }
                     else
                     {
@@ -185,7 +185,6 @@ namespace FinanceMs.Import
             sb.AppendLine("FROM MDMEnterprise a left join mdmindustry b   on a.industrynm= b.nm  left join mdmxzqh  c   on a.xzqhnm=c.nm  left join gscodeitems  d   on a.ownertype=d.code and codesetnm = 'OwnerType'  WHERE a.TYBZ = '0' and a.AuditState = '2'");
             sb.AppendLine(where);
             DataSet ds = db.ExecuteSQL(sb.ToString());
-
             return ds;
         }
         #endregion
