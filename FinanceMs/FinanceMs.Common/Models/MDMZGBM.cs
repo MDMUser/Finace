@@ -20,13 +20,13 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 部门代码
         /// </summary>
-        [Description("部门代码")]
+        [Description("主管部门代码")]
         public string Code { get; set; }
 
         /// <summary>
         /// 部门名称
         /// </summary>
-        [Description("部门名称")]
+        [Description("主管部门名称")]
         public string Name { get; set; }
 
         /// <summary>

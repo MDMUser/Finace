@@ -160,7 +160,7 @@ namespace FinanceMs.Import
             string info = "";
             for (int i = 0; i < cList.Count; i++)
             {
-                info += "编号 " + cList[i].Code + "，名称 " + cList[i].Name + "： 信息编号、名称、级数、是否明细不全无法导入；" + System.Environment.NewLine;
+                info += "编号 " + cList[i].Code + "，名称 " + cList[i].Name + "： 信息编号、名称、级数、是否明细不全无法导入；<br/>";
             }
             return info;
         }
