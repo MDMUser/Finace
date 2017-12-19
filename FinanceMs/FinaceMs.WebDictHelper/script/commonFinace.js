@@ -22,6 +22,7 @@
         objPara.Description = "";
         return objPara;
     },
+
     /**
     * 针对级次调整功能局部刷新树形数据
     * @param obj 树表对象
@@ -39,15 +40,8 @@
         self.treeGridHelper.removeNode($treeList, model, node);
         // 新父节点为空的时候
         if (newParentObj == null) {
-            return self.getListDataSourceWithOtherFilterCondition('', 1)
-                  .then(function (ds) {
-                      if (ds && ds.tables(0)) {
-                          //treegrid加载数据
-                          self.treeGridHelper.loadData($treeList, model, ds.tables(0).peek());
-                          //选中第一个节点
-                          self.selectFirstNode();
-                      }
-                  })
+            // 获取树形一级节点
+            baseTreeCom.getFirstLayerList($treeList, self, model);
         }
         else {
             // 局部刷新 new parent  
@@ -130,16 +124,29 @@
             });
         }
         else {
-            return self.getListDataSourceWithOtherFilterCondition('', 1)
-                    .then(function (ds) {
-                        if (ds && ds.tables(0)) {
-                            //treegrid加载数据
-                            self.treeGridHelper.loadData($treeList, model, ds.tables(0).peek());
-                            //选中第一个节点
-                            self.selectFirstNode();
-                        }
-                    })
+            // 获取树形一级节点
+            baseTreeCom.getFirstLayerList($treeList, self, model);
         }
 
+    }
+};
+
+var baseTreeCom = {
+    /**
+   * 获取树形结构一级节点
+   * @param obj 树表对象
+   * @param obj 页面本身
+   * @param obj 新的父级对象
+   */
+    getFirstLayerList: function ($treeList, self, model) {
+        return self.getListDataSourceWithOtherFilterCondition('', 1)
+                   .then(function (ds) {
+                       if (ds && ds.tables(0)) {
+                           //treegrid加载数据
+                           self.treeGridHelper.loadData($treeList, model, ds.tables(0).peek());
+                           //选中第一个节点
+                           self.selectFirstNode();
+                       }
+                   })
     }
 };
