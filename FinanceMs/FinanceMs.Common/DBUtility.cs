@@ -152,16 +152,21 @@ namespace FinanceMs.Common
             }
             return result;
         }
-        public static int CheackIsUpdate() 
+
+        /// <summary>
+        /// 检查数据库中是否有该条数据
+        /// </summary>
+        /// <param name="db">数据库操作类</param>
+        /// <param name="dictName">字典名称</param>
+        /// <param name="code">编号字典</param>
+        /// <returns></returns>
+        public static bool CheackIsUpdate(DataBaseEx db, string dictName, string code)
         {
-            bool  
-                if(CheackIsUpdate)
-                {
-                    StringBuilder sqledit = new StringBuilder();
-                }else
-                {
-                    StringBuilder addSql = new StringBuilder();
-                }
+            string sql = string.Format("select count(1) from {0} where code='{1}'", dictName, code);
+            DataSet ds = db.ExecuteSQL(sql);
+            int count = 0;
+            int.TryParse(ds.Tables[0].Rows[0][0].ToString(), out count);
+            return count > 0;
         }
     }
 }

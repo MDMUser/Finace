@@ -175,7 +175,7 @@ namespace FinanceMs.Common
             string str = "";
             if (!string.IsNullOrWhiteSpace(itemName))
             {
-                str = " (SELECT Code FROM  GSCodeSets WHERE CodeSetNM='" + codeTableNM + "' AND Name='" + itemName.Trim() + "') ";
+                str = " (SELECT Code FROM  GSCodeItems WHERE CodeSetNM='" + codeTableNM + "' AND Name='" + itemName.Trim() + "') ";
             }
             else
             {
