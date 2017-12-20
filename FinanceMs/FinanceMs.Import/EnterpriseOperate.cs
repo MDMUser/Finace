@@ -94,23 +94,29 @@ namespace FinanceMs.Import
                 {
                     // 修改该条数据基本信息
                     StringBuilder sqledit = new StringBuilder();
-                    sqledit.AppendFormat("UPDATE MDMEnterprise SET Code='{0}', Name='{1}', ", addInfo.Code, addInfo.Name);
+                    sqledit.AppendFormat("UPDATE MDMEnterprise SET Code='{0}', Name='{1}',ShortName='{2}',RegistAddr='{3}',RegistOrg='{4}', ", addInfo.Code, addInfo.Name, addInfo.ShortName, addInfo.RegistAddr, addInfo.RegistOrg);
+
+
+                    // 行业关联表对接
+                    if (!string.IsNullOrWhiteSpace(addInfo.IndName))
+                    {
+                        sqledit.AppendFormat(" IndNM=(select NM from MDMIndustry where Name = '{0}') , IndName='{0}', ", addInfo.IndName.Trim());
+                    }
+                    //  行政区划关联表对接
+                    if (!string.IsNullOrWhiteSpace(addInfo.XZQHName))
+                    {
+                        sqledit.AppendFormat(" XZQHNM = (select NM from MDMXZQH where Name = '{0}') , XZQHName='{0}', ", addInfo.XZQHName.Trim());
+
+                    }
+
+                    sqledit.AppendFormat("CreditCode='{0}',TaxNumber='{1}',", addInfo.CreditCode, addInfo.TaxNumber);
                     // 所有者类型码表对接
-                    if (!string.IsNullOrWhiteSpace(addInfo.OwnerTypeCode))
+                    if (!string.IsNullOrWhiteSpace(addInfo.OwnerTypeName))
                     {
                         sqledit.AppendFormat(" OwnerTypeCode={0}, OwnerTypeName='{1}', ", ConvertsData.GetCodeByName("OwnerType", addInfo.OwnerTypeName.Trim()), addInfo.OwnerTypeName.Trim());
                     }
-                    // 行业关联表对接
-                    //if (!string.IsNullOrWhiteSpace(addInfo.IndNM))
-                    //{
-                    //    sqledit.AppendFormat(" INDUSTRYNM={0}, IndName='{1}', ", ConvertsData.GetCodeByName("INDUSTRYNM", addInfo.IndNM.Trim()), addInfo.IndName.Trim());
-                    //}
-                    ////  行政区划关联表对接
-                    //if (!string.IsNullOrWhiteSpace(addInfo.XZQHNM))
-                    //{
-                    //    sqledit.AppendFormat(" XZQHNM={0} , XZQHNMName='{1}', ", ConvertsData.GetCodeByName("XZQHNM", addInfo.XZQHNM.Trim()), addInfo.XZQHNMName.Trim());
-                    //}
-                    sqledit.AppendFormat(" ShortName='{0}',CreditCode='{1}', Note='{2}', ", addInfo.ShortName, addInfo.CreditCode, addInfo.Note);
+
+                    sqledit.AppendFormat(" TYBZ='{0}',TYND='{1}', AuditState='{2}',isTrans='{3}',Note='{4}', ", addInfo.TYBZ, addInfo.TYND, addInfo.AuditState, addInfo.IsDetail, addInfo.Note);
                     sqledit.AppendFormat(" LastModifiedUser='{0}',LastModifiedTime={1} ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                     sqledit.AppendFormat(" Where Code = '{0}' ", addInfo.Code);
                     db.ExecuteSQL(sqledit.ToString());
@@ -119,37 +125,36 @@ namespace FinanceMs.Import
                 {
                     // 添加该条数据
                     StringBuilder addSql = new StringBuilder();
-                    addSql.AppendLine(" INSERT INTO MDMEnterprise (NM, Code, Name, ShortName, INDUSTRYNM ,XZQHNM, OwnerType, ");
-                    addSql.AppendLine(" TaxNumber,CreditCode,Note, AuditState, TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
+                    addSql.AppendLine(" INSERT INTO MDMEnterprise (NM, Code, Name, ShortName,RegistAddr, RegistOrg, IndustryNM ,XZQHNM,");
+                    addSql.AppendLine(" CreditCode,TaxNumber,OwnerType,Note,TYND,isTrans,AuditState,TYBZ, CreateUser, CreateTime, LastModifiedUser, LastModifiedTime ) VALUES  (  ");
                     addSql.AppendFormat("'{0}','{1}','{2}',", System.Guid.NewGuid().ToString(), addInfo.Code, addInfo.Name);
-                    addSql.AppendFormat("'{0}',", addInfo.ShortName);
+                    addSql.AppendFormat("'{0}','{1}','{2}',", addInfo.ShortName, addInfo.RegistAddr, addInfo.RegistOrg);
 
-                    if (!string.IsNullOrWhiteSpace(addInfo.IndustryNMName))
+                    if (!string.IsNullOrWhiteSpace(addInfo.IndName))
                     {
                         // 行业关联
-                        addSql.AppendFormat(" (select NM from MDMIndustry where Name = '{0}') ,'{0}', ", addInfo.IndustryNMName.Trim());
+                        addSql.AppendFormat(" (select NM from MDMIndustry where Name = '{0}') ,'{0}', ", addInfo.IndName.Trim());
                     }
                     else
                     {
                         addSql.Append(" '','',");
                     }
-                    if (!string.IsNullOrWhiteSpace(addInfo.XZQHNMName))
+                    if (!string.IsNullOrWhiteSpace(addInfo.XZQHName))
                     {
                         // 企业关联
-                        addSql.AppendFormat(" (select XZQHNM from MDMXZQH where Name = '{0}') ,'{0}', ", addInfo.XZQHNMName.Trim());
+                        addSql.AppendFormat(" (select XZQHNM from MDMXZQH where Name = '{0}') ,'{0}', ", addInfo.XZQHName.Trim());
                     }
                     else
                     {
                         addSql.Append(" '','',");
                     }
-                    addSql.AppendFormat(" {0}, ", ConvertsData.GetCodeByName("OwnerTypeCode", addInfo.OwnerTypeCode), addInfo.OwnerTypeName);
-
-
-
-                    addSql.AppendFormat("'{0}','{1}','{2}',", addInfo.TaxNumber, addInfo.CreditCode, addInfo.Note);
+                    addSql.AppendFormat("'{0}',", addInfo.CreditCode);
+                    //addSql.AppendFormat(" (select code from gscodeitems where Name = '{0}' and codesetnm = 'OwnerType' ),");
+                    addSql.AppendFormat(" {0},", ConvertsData.GetCodeByName("OwnerType", addInfo.OwnerTypeName), addInfo.OwnerTypeName);
+                    addSql.AppendFormat("'{0}',", addInfo.Note);
                     addSql.AppendFormat("'{0}','{1}',", (int)EnumAuditState.pass, (int)EnumTYBZ.enabled);
-                    addSql.AppendFormat("'{0}','{1}', ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
-                    addSql.AppendFormat("'{0}','{1}')", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
+                    addSql.AppendFormat("'{0}',{1},", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
+                    addSql.AppendFormat("'{0}',{1})", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                     db.ExecuteSQL(addSql.ToString());
                 }
 
@@ -190,6 +195,3 @@ namespace FinanceMs.Import
         #endregion
     }
 }
-
-
-
