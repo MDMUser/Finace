@@ -46,13 +46,13 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 行业代码
         /// </summary>
-        public string IndNM { get; set; }
+        public string IndustryNM { get; set; }
 
         /// <summary>
         /// 行业名称
         /// </summary>
         [Description("行业名称")]
-        public string IndName { get; set; }
+        public string IndustryName { get; set; }
 
         /// <summary>
         /// 行政区划内码
