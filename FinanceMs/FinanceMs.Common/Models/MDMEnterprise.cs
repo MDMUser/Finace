@@ -34,6 +34,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 注册地
         /// </summary>
+        [Description("注册地")]
         public string RegistAddr { get; set; }
 
         /// <summary>
@@ -45,35 +46,23 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 行业代码
         /// </summary>
-        [Description("行业代码")]
         public string IndustryNM { get; set; }
 
         /// <summary>
-        /// 行业代码
+        /// 行业名称
         /// </summary>
-        public string IndustryNMCode { get; set; }
-        /// <summary>
-        /// 行业代码
-        /// </summary>
+        [Description("行业名称")]
+        public string IndustryName { get; set; }
 
-        public string IndustryNMName { get; set; }
         /// <summary>
         /// 行政区划内码
         /// </summary>
-        [Description("行政区划内码")]
-
         public string XZQHNM { get; set; }
-
-        /// <summary>
-        /// 行政区划code
-        /// </summary>
-
-        public string XZQHNMCode { get; set; }
-
         /// <summary>
         /// 行政区划名称
         /// </summary>
-        public string XZQHNMName { get; set; }
+        [Description("行政区划名称")]
+        public string XZQHName { get; set; }
 
         /// <summary>
         /// 统一社会信用代码
@@ -88,7 +77,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 所有者类型
         /// </summary>
-        [Description("所有者类型")]
+
         public string OwnerType { get; set; }
         /// <summary>
         /// 所有者类型编码
@@ -97,6 +86,7 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 所有者类型名称
         /// </summary>
+        [Description("所有者类型名称")]
         public string OwnerTypeName { get; set; }
 
         /// <summary>
@@ -107,7 +97,6 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 上级单位代码
         /// </summary>
-        [Description("上级单位代码")]
         public string ParentCode { get; set; }
 
         /// <summary>
@@ -124,13 +113,11 @@ namespace FinanceMs.Common.Models
         /// <summary>
         /// 级数
         /// </summary>
-        [Description("级数")]
         public int Layer { get; set; }
 
         /// <summary>
         /// 是否明细
         /// </summary>
-        [Description("是否明细")]
         public string IsDetail { get; set; }
 
         /// <summary>

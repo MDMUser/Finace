@@ -233,7 +233,7 @@ namespace FinanceMs.Import
                         addSql.AppendFormat(" {0},'{1}', ", ConvertsData.GetCodeByName("FundSupply", addInfo.FundsupName), addInfo.FundsupName);
                         addSql.AppendFormat("'{0}','{1}', '{2}' , ", addInfo.Fax, addInfo.Tel, addInfo.Address);
                         addSql.AppendFormat("'{0}','{1}', {2} ,'{3}',  ", addInfo.Note, resModel.NewFJM, resModel.NewLayer, addInfo.IsDetail);
-                        addSql.AppendFormat("'{0}','{1}',  ", (int)EnumTYBZ.enabled, (int)EnumAuditState.pass);
+                        addSql.AppendFormat("'{0}','{1}',", (int)EnumTYBZ.enabled, (int)EnumAuditState.pass);
                         addSql.AppendFormat("'{0}',{1}, ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         addSql.AppendFormat("'{0}',{1}) ", DBUtility.GetOperateUser() + "导入", DBUtility.GetOperateDate());
                         db.ExecuteSQL(addSql.ToString());
